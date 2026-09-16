@@ -79,8 +79,12 @@
     var cls = opts.imgClass ? ' class="' + opts.imgClass + '"' : '';
     var loading = opts.eager ? 'eager' : 'lazy';
     var sizes = opts.sizes ? ' sizes="' + opts.sizes + '"' : '';
+    /* Ohne Bildpfad direkt den Platzhalter zeigen - ein leeres src-Attribut
+       loest je nach Browser gar kein Fehler-Ereignis aus. */
+    var missing = src ? '' : ' is-missing';
     return '' +
-      '<div class="media"' + (opts.ratio ? ' style="--media-ratio:' + opts.ratio + '"' : '') + '>' +
+      '<div class="media' + missing + '"' +
+        (opts.ratio ? ' style="--media-ratio:' + opts.ratio + '"' : '') + '>' +
         '<img' + cls + ' src="' + escapeHtml(src) + '" alt="' + escapeHtml(alt || '') + '"' +
           ' loading="' + loading + '" decoding="async"' + sizes + ' data-img>' +
         '<div class="media__fallback" aria-hidden="true">' + MONOGRAM +
@@ -340,6 +344,21 @@
       window.FREDA_HERO_IMAGE.alt,
       { eager: true, sizes: '(min-width: 900px) 50vw, 100vw' }
     );
+
+    /* Der Rahmen uebernimmt das echte Seitenverhaeltnis des Fotos, damit
+       nichts beschnitten wird - unabhaengig davon, welches Bild hier steht. */
+    var img = $('img', slot);
+    if (!img) return;
+    var apply = function () {
+      if (!img.naturalWidth || !img.naturalHeight) return;
+      var media = img.closest('.media');
+      if (media) {
+        media.style.setProperty('--media-ratio',
+          img.naturalWidth + ' / ' + img.naturalHeight);
+      }
+    };
+    if (img.complete) apply();
+    img.addEventListener('load', apply);
   }
 
   function cardMarkup(product) {

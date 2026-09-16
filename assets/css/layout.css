@@ -126,9 +126,9 @@
 .hero__grid { display: grid; grid-template-columns: 1fr; }
 
 .hero__media { position: relative; }
-/* Seitenverhaeltnis entspricht exakt dem Hero-Foto (440 x 687).
-   Dadurch wird nichts abgeschnitten - das Bild ist vollstaendig zu sehen. */
-.hero__media .media { --media-ratio: 440 / 687; max-height: none; }
+/* Das Seitenverhaeltnis setzt das Skript aus dem jeweiligen Hero-Foto.
+   Der Wert hier ist nur der Rueckfall, bis das Bild geladen ist. */
+.hero__media .media { --media-ratio: 2 / 3; max-height: none; }
 .hero__media img { animation: hero-zoom 2.4s var(--ease) both; }
 @keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
 
@@ -155,7 +155,6 @@
   /* Das Bild bleibt frei von Text – Gesicht und Look werden nicht verdeckt. */
   .hero__media { order: 2; }
   .hero__media .media {
-    --media-ratio: 440 / 687;
     height: calc(100dvh - var(--header-h));
     min-height: 520px;
     width: auto;         /* folgt der Hoehe ueber das Seitenverhaeltnis */

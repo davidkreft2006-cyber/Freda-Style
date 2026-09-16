@@ -49,11 +49,9 @@ Das Skript legt verständlich benannte **Kopien** unter
 | --- | --- | --- |
 | `military-blazer-01.jpg` | Military Blazer, getragen | 2:3 |
 | `military-blazer-02.jpg` | Military Blazer, Bügel | 2:3 |
-| `rock-taschen-01.jpg` | Weiter Rock mit Taschen | 2:3 |
-| `hero-rock.jpg` | dasselbe Motiv, unbeschnitten – nur für den Hero | Original |
 | `bluse-01.jpg` | Bluse, Detailansicht | 2:3 |
 | `bluse-02.jpg` | Bluse, ganzer Look | 2:3 |
-| `jeansjacke-01.jpg` | Oversize-Jeansjacke | 2:3 |
+| `jeansjacke-01.jpg` | Oversize-Jeansjacke – **aktuelles Hero-Bild** | 2:3 |
 | `jeansjacke-02.jpg` | Oversize-Jeansjacke | 2:3 |
 | `jeansjacke-03.jpg` | Oversize-Jeansjacke, Detail | 2:3 |
 
@@ -233,6 +231,8 @@ erst in der finalen Version eingerichtet wird.
       (im Footer als Platzhalter markiert – es wurden bewusst keine
       Rechtstexte erfunden)
 * [ ] Foto der **weißen Bluse** ergänzen (siehe `imageNote` oben)
+* [ ] Foto für den **weiten Rock mit Taschen** ergänzen – das Produkt hat
+      derzeit kein Bild und zeigt den Platzhalter
 
 ---
 

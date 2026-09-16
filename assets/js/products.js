@@ -63,9 +63,9 @@ window.FREDA_PRODUCTS = [
       'Weit geschnittener Baumwollrock mit praktischen Taschen und ' +
       'fließender Silhouette. Lässt sich elegant oder lässig kombinieren.',
     badge: null,
-    images: [
-      'assets/img/products/rock-taschen-01.jpg'
-    ],
+    /* TODO: Foto fuer den Rock ergaenzen. Bis dahin zeigt die Seite an
+       dieser Stelle den Platzhalter im Markendesign. */
+    images: [],
     options: ['Farbe', 'Größe'],
     variants: [
       {
@@ -142,7 +142,7 @@ window.FREDA_PRODUCTS = [
    Es werden ausschliesslich vorhandene Produktbilder verwendet.
    ------------------------------------------------------------- */
 window.FREDA_LOOKBOOK = [
-  { src: 'assets/img/products/rock-taschen-01.jpg',    alt: 'Weiter Rock mit Taschen',      size: 'tall'  },
+  { src: 'assets/img/products/jeansjacke-02.jpg',      alt: 'Oversize-Jeansjacke',          size: 'tall'  },
   { src: 'assets/img/products/military-blazer-01.jpg', alt: 'Military Blazer',              size: 'wide'  },
   { src: 'assets/img/products/bluse-01.jpg',           alt: 'Bluse mit Ärmeldetails',       size: 'small' },
   { src: 'assets/img/products/jeansjacke-01.jpg',      alt: 'Oversize-Jeansjacke',          size: 'tall'  },
@@ -160,7 +160,6 @@ window.FREDA_INSTAGRAM_TILES = [
 
 /* Hero-Bild: bevorzugt die Aufnahme mit dem schwarzen Rock. */
 window.FREDA_HERO_IMAGE = {
-  /* Eigene, unbeschnittene Fassung – im Hero deckt das Layout selbst ab. */
-  src: 'assets/img/products/hero-rock.jpg',
-  alt: 'Look mit weitem schwarzem Rock von Freda Style'
+  src: 'assets/img/products/jeansjacke-01.jpg',
+  alt: 'Look mit Oversize-Jeansjacke von Freda Style'
 };
