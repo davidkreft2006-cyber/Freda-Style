@@ -145,20 +145,21 @@
 .hero__actions .btn { flex: 1 1 220px; }
 
 @media (min-width: 900px) {
+  /* Die Bildspalte ist "auto" breit - sie nimmt exakt die Breite an, die
+     das Bild bei voller Hoehe hat. Dadurch entsteht kein Rand neben dem
+     Bild, und das Foto laeuft buendig bis an den rechten Rand. */
   .hero__grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: stretch;
   }
   /* Das Bild bleibt frei von Text – Gesicht und Look werden nicht verdeckt. */
-  .hero__media { order: 2; display: flex; justify-content: center; padding-block: var(--s-6); }
-  /* Hoehe begrenzt, Breite folgt dem Seitenverhaeltnis: das Foto bleibt
-     vollstaendig sichtbar, statt auf die Spaltenhoehe beschnitten zu werden. */
+  .hero__media { order: 2; }
   .hero__media .media {
     --media-ratio: 440 / 687;
-    width: auto;
-    height: auto;
-    max-height: calc(100dvh - var(--header-h) - 2 * var(--s-6));
-    max-width: 100%;
+    height: calc(100dvh - var(--header-h));
+    min-height: 520px;
+    width: auto;         /* folgt der Hoehe ueber das Seitenverhaeltnis */
+    max-width: 58vw;     /* bei sehr hohen Fenstern nicht uebermaechtig */
   }
   .hero__content {
     order: 1;
