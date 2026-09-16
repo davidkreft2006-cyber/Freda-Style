@@ -1,0 +1,42 @@
+# Veroeffentlicht die Demo-Seite auf GitHub Pages.
+# Die Seite ist reines HTML/CSS/JS, es wird nichts gebaut –
+# der Ordner wird einfach so ausgeliefert, wie er im Repo liegt.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: GitHub Pages einrichten
+        uses: actions/configure-pages@v5
+        with:
+          # Aktiviert Pages beim ersten Lauf automatisch.
+          enablement: true
+
+      - name: Seite hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Veroeffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4
