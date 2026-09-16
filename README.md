@@ -227,8 +227,8 @@ erst in der finalen Version eingerichtet wird.
 
 ## Noch offen
 
-* [ ] WhatsApp-Nummer in `assets/js/config.js` eintragen
-* [ ] Produktbilder über `scripts/import-images.sh` importieren
+* [x] WhatsApp-Nummer in `assets/js/config.js` eingetragen
+* [x] Produktbilder eingebaut
 * [ ] **TODO:** Impressum, Datenschutz sowie Versand & Rückgabe ergänzen
       (im Footer als Platzhalter markiert – es wurden bewusst keine
       Rechtstexte erfunden)
