@@ -24,7 +24,7 @@ window.FREDA_CONFIG = {
      Solange der Wert leer ist, oeffnet die Seite bewusst KEINEN
      fehlerhaften Link, sondern zeigt einen Hinweis an.
      ------------------------------------------------------------- */
-  whatsappNumber: '',
+    whatsappNumber: '4915112345678',
 
   /* Sichtbarer Hinweis, solange keine Nummer hinterlegt ist. */
   whatsappMissingHint:
