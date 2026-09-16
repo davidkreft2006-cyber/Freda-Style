@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Freda Style">
+  <title>Freda Style</title>
+  <!-- Vereinfachtes FS-Monogramm: kraeftigere Striche, keine Ueberschneidung,
+       damit die Marke auch bei 16 px klar bleibt. -->
+  <rect width="64" height="64" rx="8" fill="#111111"/>
+  <g fill="none" stroke="#F6F1E8" stroke-width="3.6" stroke-linecap="butt">
+    <path d="M18 17 V47"/>
+    <path d="M18 17 H35"/>
+    <path d="M18 31 H31"/>
+    <path d="M47 27 C47 20 35 20 35 27 C35 34 47 34 47 41 C47 48 35 48 35 41"/>
+  </g>
+</svg>

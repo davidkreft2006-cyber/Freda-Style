@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freda Style – Persönlich ausgewählte Mode aus Italien</title>
+<meta name="description" content="Freda Style bringt persönlich ausgewählte Damenmode aus Italien zu dir – elegant, modern und mit besonderen Details.">
+<meta name="theme-color" content="#111111">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Freda Style – Persönlich ausgewählte Mode aus Italien">
+<meta property="og:description" content="Elegante Boutique-Mode, persönlich ausgewählt und aus Italien bezogen.">
+<meta property="og:locale" content="de_DE">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap">
+
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+</head>
+
+<body>
+<a class="u-skip" href="#main">Zum Inhalt springen</a>
+
+<!-- ============================================================
+     SECTION: Announcement Bar
+     ============================================================ -->
+<div class="announcement">
+  <p data-cfg-announcement>Persönlich ausgewählte Mode aus Italien</p>
+</div>
+
+<!-- ============================================================
+     SECTION: Header
+     ============================================================ -->
+<header class="header" data-header>
+  <div class="u-wrap header__inner">
+    <a class="logo" href="#top" aria-label="Freda Style – Startseite">
+      <img src="assets/img/logo-freda-style.svg" alt="FREDA STYLE" width="186" height="32">
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#neuheiten">Neuheiten</a>
+      <a href="#shop">Shop</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+
+    <div class="header__actions">
+      <a class="icon-btn" href="https://www.instagram.com/freda_style/" target="_blank"
+         rel="noopener noreferrer" data-cfg-instagram aria-label="Freda Style auf Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </a>
+
+      <button class="icon-btn header__cart" type="button" data-open-cart aria-label="Warenkorb öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M6 8h12l-1 12H7L6 8Z"></path>
+          <path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"></path>
+        </svg>
+        <span class="count" data-cart-count>0</span>
+      </button>
+
+      <button class="icon-btn header__burger" type="button" data-open-menu aria-label="Menü öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ============================================================
+       SECTION: Hero
+       Der Text steht bewusst neben dem Bild, nicht darauf –
+       Gesicht und Look bleiben vollstaendig sichtbar.
+       ============================================================ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__grid">
+      <div class="hero__media" data-hero-media></div>
+
+      <div class="hero__content">
+        <p class="u-eyebrow">Boutique · Italien</p>
+        <h1 class="hero__title" id="hero-title">Mode, die in Erinnerung bleibt.</h1>
+        <p class="hero__sub">
+          Freda Style bringt persönlich ausgewählte Looks aus Italien zu dir –
+          elegant, modern und mit besonderen Details.
+        </p>
+        <div class="hero__actions">
+          <a class="btn" href="#shop">Kollektion entdecken</a>
+          <button class="btn btn--wa" type="button" data-wa-beratung>
+            Über WhatsApp beraten lassen
+          </button>
+        </div>
+        <p class="hero__scroll">Nach unten</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: Featured Collection / Product Grid
+       ============================================================ -->
+  <section class="section" id="shop" aria-labelledby="shop-title">
+    <div class="u-wrap">
+      <div class="section__head section__head--split" data-reveal>
+        <div>
+          <p class="u-eyebrow" id="neuheiten">Neuheiten</p>
+          <h2 class="section__title" id="shop-title">Unsere Auswahl</h2>
+          <hr class="u-rule">
+        </div>
+        <p class="hero__sub" style="max-width:38ch">
+          Jedes Stück wird persönlich ausgewählt und aus Italien bezogen –
+          in kleiner Stückzahl, nicht beliebig.
+        </p>
+      </div>
+
+      <div class="grid-products" data-product-grid></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: Brand Story
+       ============================================================ -->
+  <section class="section section--paper" id="ueber-uns" aria-labelledby="story-title">
+    <div class="u-wrap story__grid">
+      <div class="story__text" data-reveal>
+        <p class="u-eyebrow">Über Freda Style</p>
+        <h2 class="story__title" id="story-title">Mit Liebe ausgewählt.</h2>
+        <hr class="u-rule">
+        <p>
+          Bei Freda Style findest du moderne Silhouetten, besondere Details und
+          Looks, die sich nicht beliebig anfühlen. Jedes Kleidungsstück wird
+          persönlich ausgewählt und aus Italien bezogen.
+        </p>
+
+        <div class="story__values">
+          <div class="story__value">
+            <strong>Persönlich ausgewählt</strong>
+            <span>Stück für Stück</span>
+          </div>
+          <div class="story__value">
+            <strong>Aus Italien bezogen</strong>
+            <span>Direkt vor Ort</span>
+          </div>
+          <div class="story__value">
+            <strong>Individuelle Beratung</strong>
+            <span>Auf Wunsch persönlich</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story__media" data-story-media></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: Lookbook
+       ============================================================ -->
+  <section class="section" id="lookbook" aria-labelledby="lookbook-title">
+    <div class="u-wrap">
+      <div class="section__head" data-reveal>
+        <p class="u-eyebrow">Editorial</p>
+        <h2 class="section__title" id="lookbook-title">Lookbook</h2>
+        <hr class="u-rule">
+      </div>
+      <div class="lookbook__grid" data-lookbook></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: Instagram
+       ============================================================ -->
+  <section class="section section--paper" aria-labelledby="insta-title">
+    <div class="u-wrap">
+      <div class="section__head section__head--split" data-reveal>
+        <div>
+          <p class="u-eyebrow">Instagram</p>
+          <h2 class="section__title" id="insta-title">Neue Looks zuerst auf Instagram</h2>
+          <hr class="u-rule">
+        </div>
+        <a class="insta__handle link-underline"
+           href="https://www.instagram.com/freda_style/" target="_blank"
+           rel="noopener noreferrer" data-cfg-instagram>
+          <span data-cfg-handle>@freda_style</span>
+        </a>
+      </div>
+
+      <div class="insta__grid" data-insta></div>
+
+      <div style="margin-top:2rem" data-reveal>
+        <a class="btn btn--ghost" href="https://www.instagram.com/freda_style/"
+           target="_blank" rel="noopener noreferrer" data-cfg-instagram>
+          Folge <span data-cfg-handle>@freda_style</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: WhatsApp-Beratung
+       ============================================================ -->
+  <section class="section section--tight" id="kontakt" aria-labelledby="advice-title">
+    <div class="u-wrap">
+      <div class="advice" data-reveal>
+        <div>
+          <p class="u-eyebrow">Persönliche Beratung</p>
+          <h2 class="advice__title" id="advice-title">
+            Du bist dir bei Größe oder Kombination unsicher?
+          </h2>
+          <p class="advice__text">
+            Schreib Freda Style direkt über WhatsApp und lass dich persönlich beraten.
+          </p>
+        </div>
+        <button class="btn btn--wa" type="button" data-wa-beratung>
+          Beratung über WhatsApp starten
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION: Newsletter
+       ============================================================ -->
+  <section class="section section--dark" aria-labelledby="news-title">
+    <div class="u-wrap newsletter__grid">
+      <div data-reveal>
+        <p class="u-eyebrow">Newsletter</p>
+        <h2 class="newsletter__title" id="news-title">Neue Styles. Direkt für dich.</h2>
+        <hr class="u-rule">
+        <p style="margin-top:1rem;color:rgba(247,243,236,.72);max-width:44ch">
+          Erfahre zuerst von neuen Looks und ausgewählten Kollektionen.
+        </p>
+      </div>
+
+      <form class="field" data-newsletter novalidate data-reveal>
+        <label class="u-visually-hidden" for="news-mail">E-Mail-Adresse</label>
+        <div class="field__row">
+          <input id="news-mail" type="email" name="email" placeholder="deine@email.de"
+                 autocomplete="email" required>
+          <button class="btn btn--light" type="submit">Eintragen</button>
+        </div>
+        <p class="field__msg" data-newsletter-msg role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ============================================================
+     SECTION: Footer
+     ============================================================ -->
+<footer class="footer">
+  <div class="u-wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="logo logo--footer" href="#top" aria-label="Freda Style – Startseite"
+           style="color:var(--c-cream)">
+          <img src="assets/img/logo-freda-style.svg" alt="FREDA STYLE" width="210" height="36">
+        </a>
+        <!-- FS-Monogramm inline, damit es die Farbe der Umgebung uebernimmt. -->
+        <svg class="monogram" viewBox="0 0 100 100" role="img" aria-label="FS Monogramm">
+          <title>FS Monogramm</title>
+          <mask id="fs-footer">
+            <rect width="100" height="100" fill="#fff"></rect>
+            <g fill="none" stroke="#000" stroke-width="12">
+              <path d="M30 20 V80"></path><path d="M30 20 H66"></path><path d="M30 48 H55"></path>
+            </g>
+          </mask>
+          <g fill="none" stroke="currentColor" stroke-width="4.4">
+            <path d="M74 36 C74 24 50 24 50 36 C50 47 74 47 74 60 C74 73 49 73 49 60" mask="url(#fs-footer)"></path>
+            <path d="M30 20 V80"></path><path d="M30 20 H66"></path><path d="M30 48 H55"></path>
+          </g>
+        </svg>
+        <p class="footer__tag">
+          Persönlich ausgewählte Damenmode, bezogen aus Italien.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h3>Seite</h3>
+        <ul>
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#neuheiten">Neuheiten</a></li>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li><a href="#lookbook">Lookbook</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3>Kontakt &amp; Rechtliches</h3>
+        <ul>
+          <li>
+            <a class="social" href="https://www.instagram.com/freda_style/" target="_blank"
+               rel="noopener noreferrer" data-cfg-instagram>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
+              </svg>
+              <span data-cfg-handle>@freda_style</span>
+            </a>
+          </li>
+          <li><button type="button" data-wa-beratung>WhatsApp-Kontakt</button></li>
+          <!-- TODO: Rechtstexte der Betreiberin ergaenzen und hier verlinken. -->
+          <li><a href="#" data-legal-todo>Impressum <em>(folgt)</em></a></li>
+          <li><a href="#" data-legal-todo>Datenschutz <em>(folgt)</em></a></li>
+          <li><a href="#" data-legal-todo>Versand &amp; Rückgabe <em>(folgt)</em></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© <span data-cfg-year>2026</span> <span data-cfg-brand>Freda Style</span></p>
+      <p>Persönlich ausgewählt · Aus Italien bezogen</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     Overlay + Panels
+     ============================================================ -->
+<div class="overlay" data-overlay></div>
+
+<!-- Mobiles Menue -->
+<aside class="panel mobilenav" data-mobilenav aria-hidden="true" aria-label="Menü">
+  <div class="panel__head">
+    <span class="panel__title">Menü</span>
+    <button class="icon-btn" type="button" data-close-panel aria-label="Menü schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+  </div>
+  <nav class="panel__body">
+    <ul class="mobilenav__list">
+      <li><a href="#neuheiten">Neuheiten</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#ueber-uns">Über uns</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+  <div class="mobilenav__foot">
+    <a class="btn btn--ghost" href="https://www.instagram.com/freda_style/" target="_blank"
+       rel="noopener noreferrer" data-cfg-instagram>Instagram</a>
+    <button class="btn btn--wa" type="button" data-wa-beratung>WhatsApp-Beratung</button>
+  </div>
+</aside>
+
+<!-- Produktansicht -->
+<aside class="panel modal" data-detail aria-hidden="true" role="dialog" aria-modal="true"
+       aria-labelledby="pd-title">
+  <div class="panel__head">
+    <span class="panel__title">Produkt</span>
+    <button class="icon-btn" type="button" data-close-panel aria-label="Produktansicht schließen"
+            data-autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="panel__body" data-detail-body></div>
+</aside>
+
+<!-- Warenkorb -->
+<aside class="panel drawer" data-drawer aria-hidden="true" role="dialog" aria-modal="true"
+       aria-label="Warenkorb">
+  <div class="panel__head">
+    <span class="panel__title">Warenkorb</span>
+    <button class="icon-btn" type="button" data-close-panel aria-label="Warenkorb schließen"
+            data-autofocus>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="panel__body" data-cart-list></div>
+
+  <div class="panel__foot" data-cart-foot hidden>
+    <div class="cart__sum">
+      <span>Zwischensumme</span>
+      <span data-cart-subtotal>0,00 €</span>
+    </div>
+    <button class="btn btn--block" type="button" data-checkout>Zur Kasse</button>
+    <button class="btn btn--wa btn--block" type="button" data-wa-cart>
+      Bestellung über WhatsApp anfragen
+    </button>
+    <p class="cart__note">
+      Diese Demo enthält noch keinen echten Checkout. Der sichere Online-Checkout
+      folgt in der Shopify-Version.
+    </p>
+  </div>
+</aside>
+
+<div class="toast-stack" data-toasts aria-live="polite"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

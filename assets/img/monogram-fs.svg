@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Freda Style Monogramm FS">
+  <title>FS Monogramm</title>
+  <!-- Ineinandergreifendes F und S. Die Maske erzeugt die Verschraenkung
+       hintergrundunabhaengig, dadurch bleibt die Marke auch einfarbig lesbar. -->
+  <defs>
+    <mask id="fs-interlock">
+      <rect x="0" y="0" width="100" height="100" fill="#fff"/>
+      <g fill="none" stroke="#000" stroke-width="12" stroke-linecap="butt">
+        <path d="M30 20 V80"/>
+        <path d="M30 20 H66"/>
+        <path d="M30 48 H55"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M74 36 C74 24 50 24 50 36 C50 47 74 47 74 60 C74 73 49 73 49 60"
+          mask="url(#fs-interlock)"/>
+    <path d="M30 20 V80"/>
+    <path d="M30 20 H66"/>
+    <path d="M30 48 H55"/>
+  </g>
+</svg>
