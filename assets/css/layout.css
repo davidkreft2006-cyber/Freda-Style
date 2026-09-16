@@ -126,8 +126,9 @@
 .hero__grid { display: grid; grid-template-columns: 1fr; }
 
 .hero__media { position: relative; }
-/* Mobil bewusst flacher, damit Headline und Buttons ohne Scrollen sichtbar sind. */
-.hero__media .media { --media-ratio: 4 / 5; max-height: 56dvh; }
+/* Seitenverhaeltnis entspricht exakt dem Hero-Foto (440 x 687).
+   Dadurch wird nichts abgeschnitten - das Bild ist vollstaendig zu sehen. */
+.hero__media .media { --media-ratio: 440 / 687; max-height: none; }
 .hero__media img { animation: hero-zoom 2.4s var(--ease) both; }
 @keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
 
@@ -146,15 +147,19 @@
 @media (min-width: 900px) {
   .hero__grid {
     grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    min-height: calc(100dvh - var(--header-h));
+    align-items: center;
   }
   /* Das Bild bleibt frei von Text – Gesicht und Look werden nicht verdeckt. */
-  .hero__media { order: 2; }
-  .hero__media .media { --media-ratio: auto; height: 100%; max-height: none; }
-  /* Bildausschnitt so gelegt, dass Gesicht UND die volle Rocksilhouette
-     sichtbar bleiben - "top" wuerde den Rock unten abschneiden. */
-  .hero__media img { object-position: center 45%; }
+  .hero__media { order: 2; display: flex; justify-content: center; padding-block: var(--s-6); }
+  /* Hoehe begrenzt, Breite folgt dem Seitenverhaeltnis: das Foto bleibt
+     vollstaendig sichtbar, statt auf die Spaltenhoehe beschnitten zu werden. */
+  .hero__media .media {
+    --media-ratio: 440 / 687;
+    width: auto;
+    height: auto;
+    max-height: calc(100dvh - var(--header-h) - 2 * var(--s-6));
+    max-width: 100%;
+  }
   .hero__content {
     order: 1;
     justify-content: center;
