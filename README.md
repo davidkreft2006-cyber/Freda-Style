@@ -111,6 +111,10 @@ Größen, Beschreibung, Bilder und Verfügbarkeit.
 * `options` und die `options`-Liste jeder Variante haben dieselbe Reihenfolge.
 * `image` in einer Variante ist optional: Index aus `images`, damit beim
   Wechsel der Farbe direkt das passende Bild erscheint. `null` = keine Zuordnung.
+* `imageNote` ist ein optionaler Hinweis für Varianten, zu denen noch kein
+  eigenes Foto vorliegt. Er erscheint in der Produktansicht nur, wenn genau
+  diese Variante gewählt ist. Sobald ein Foto da ist: bei `image` den Index
+  eintragen und `imageNote` löschen. Aktuell genutzt bei der **weißen Bluse**.
 * Ein Produkt mit **mehreren** Varianten lässt sich erst in den Warenkorb legen,
   wenn Farbe und Größe gewählt sind.
 
@@ -219,6 +223,7 @@ erst in der finalen Version eingerichtet wird.
 * [ ] **TODO:** Impressum, Datenschutz sowie Versand & Rückgabe ergänzen
       (im Footer als Platzhalter markiert – es wurden bewusst keine
       Rechtstexte erfunden)
+* [ ] Foto der **weißen Bluse** ergänzen (siehe `imageNote` oben)
 
 ---
 

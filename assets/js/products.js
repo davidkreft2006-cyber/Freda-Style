@@ -19,9 +19,11 @@
    badge         kurzer Hinweis auf der Karte oder null
    images        Bildpfade, das erste Bild ist das Hauptbild
    options       Namen der Auswahlfelder, z. B. ['Farbe','Groesse']
-   variants      je Variante: { id, options, available, image }
-                 options entspricht der Reihenfolge von "options"
-                 image   optionaler Index aus "images"
+   variants      je Variante: { id, options, available, image, imageNote }
+                 options   entspricht der Reihenfolge von "options"
+                 image     optionaler Index aus "images"
+                 imageNote optionaler ehrlicher Hinweis, wenn fuer diese
+                           Variante noch kein eigenes Foto vorliegt
    available     Verfuegbarkeit des Produkts insgesamt
    ============================================================= */
 
@@ -87,7 +89,17 @@ window.FREDA_PRODUCTS = [
     ],
     options: ['Farbe', 'Größe'],
     variants: [
-      { id: 'bluse-weiss-m',   options: ['Weiß', 'M'],    available: true, image: null },
+      {
+        id: 'bluse-weiss-m',
+        options: ['Weiß', 'M'],
+        available: true,
+        image: null,
+        /* Fuer die weisse Bluse liegt noch kein eigenes Foto vor.
+           Sobald eines da ist: hier den Bildindex bei "image" eintragen
+           und diesen Hinweis loeschen. */
+        imageNote: 'Für diese Farbe liegt noch kein eigenes Foto vor – ' +
+                   'die Abbildung zeigt die schwarze Variante.'
+      },
       { id: 'bluse-schwarz-s', options: ['Schwarz', 'S'], available: true, image: null },
       { id: 'bluse-schwarz-m', options: ['Schwarz', 'M'], available: true, image: null }
     ],

@@ -355,6 +355,15 @@
 
 .opt__hint { font-size: var(--fs-xs); color: var(--c-gold); letter-spacing: 0.06em; }
 
+/* Ehrlicher Hinweis, wenn fuer eine Variante noch kein eigenes Foto vorliegt. */
+.opt__note {
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--c-muted);
+  border-left: 1px solid var(--c-gold-soft);
+  padding-left: var(--s-3);
+}
+
 /* --- Mengenwahl ----------------------------------------------- */
 .qty {
   display: inline-flex;

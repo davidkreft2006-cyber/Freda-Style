@@ -527,6 +527,9 @@
                 escapeHtml(p.material) + '</dd></div></dl>'
               : '') +
             optionsMarkup() +
+            (state.variant && state.variant.imageNote
+              ? '<p class="opt__note">' + escapeHtml(state.variant.imageNote) + '</p>'
+              : '') +
             (needsChoice
               ? '<p class="opt__hint">Bitte ' +
                 escapeHtml(p.options.filter(function (name, i) {
