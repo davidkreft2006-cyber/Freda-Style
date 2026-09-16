@@ -39,8 +39,8 @@ window.FREDA_PRODUCTS = [
       'elegante und moderne Looks.',
     badge: null,
     images: [
-      'assets/img/products/military-blazer-01.png',
-      'assets/img/products/military-blazer-02.png'
+      'assets/img/products/military-blazer-01.jpg',
+      'assets/img/products/military-blazer-02.jpg'
     ],
     options: ['Farbe', 'Größe'],
     variants: [
@@ -59,7 +59,7 @@ window.FREDA_PRODUCTS = [
       'fließender Silhouette. Lässt sich elegant oder lässig kombinieren.',
     badge: null,
     images: [
-      'assets/img/products/rock-taschen-01.png'
+      'assets/img/products/rock-taschen-01.jpg'
     ],
     options: ['Farbe', 'Größe'],
     variants: [
@@ -84,8 +84,8 @@ window.FREDA_PRODUCTS = [
       'Ärmeldetails. Ein vielseitiges Boutique-Piece für elegante Outfits.',
     badge: null,
     images: [
-      'assets/img/products/bluse-01.png',
-      'assets/img/products/bluse-02.png'
+      'assets/img/products/bluse-01.jpg',
+      'assets/img/products/bluse-02.jpg'
     ],
     options: ['Farbe', 'Größe'],
     variants: [
@@ -116,11 +116,9 @@ window.FREDA_PRODUCTS = [
       'Schnitt und auffälligen Details. Ideal als lässiges Statement-Piece.',
     badge: null,
     images: [
-      'assets/img/products/jeansjacke-01.png',
-      'assets/img/products/jeansjacke-02.png',
-      'assets/img/products/jeansjacke-03.png',
-      'assets/img/products/jeansjacke-04.png',
-      'assets/img/products/jeansjacke-05.png'
+      'assets/img/products/jeansjacke-01.jpg',
+      'assets/img/products/jeansjacke-02.jpg',
+      'assets/img/products/jeansjacke-03.jpg'
     ],
     options: ['Farbe', 'Größe'],
     variants: [
@@ -137,24 +135,25 @@ window.FREDA_PRODUCTS = [
    Es werden ausschliesslich vorhandene Produktbilder verwendet.
    ------------------------------------------------------------- */
 window.FREDA_LOOKBOOK = [
-  { src: 'assets/img/products/rock-taschen-01.png',    alt: 'Weiter Rock mit Taschen',      size: 'tall'  },
-  { src: 'assets/img/products/military-blazer-01.png', alt: 'Military Blazer',              size: 'wide'  },
-  { src: 'assets/img/products/bluse-01.png',           alt: 'Bluse mit Ärmeldetails',       size: 'small' },
-  { src: 'assets/img/products/jeansjacke-02.png',      alt: 'Oversize-Jeansjacke',          size: 'tall'  },
-  { src: 'assets/img/products/military-blazer-02.png', alt: 'Military Blazer, Detailblick', size: 'small' },
-  { src: 'assets/img/products/jeansjacke-05.png',      alt: 'Oversize-Jeansjacke im Look',  size: 'wide'  }
+  { src: 'assets/img/products/rock-taschen-01.jpg',    alt: 'Weiter Rock mit Taschen',      size: 'tall'  },
+  { src: 'assets/img/products/military-blazer-01.jpg', alt: 'Military Blazer',              size: 'wide'  },
+  { src: 'assets/img/products/bluse-01.jpg',           alt: 'Bluse mit Ärmeldetails',       size: 'small' },
+  { src: 'assets/img/products/jeansjacke-01.jpg',      alt: 'Oversize-Jeansjacke',          size: 'tall'  },
+  { src: 'assets/img/products/military-blazer-02.jpg', alt: 'Military Blazer, Detailblick', size: 'small' },
+  { src: 'assets/img/products/bluse-02.jpg',           alt: 'Bluse im Look',                size: 'wide'  }
 ];
 
 /* Instagram-inspirierter Bereich: echte Produktbilder, kein Fake-Feed. */
 window.FREDA_INSTAGRAM_TILES = [
-  { src: 'assets/img/products/jeansjacke-01.png',      alt: 'Oversize-Jeansjacke' },
-  { src: 'assets/img/products/bluse-02.png',           alt: 'Bluse' },
-  { src: 'assets/img/products/military-blazer-01.png', alt: 'Military Blazer' },
-  { src: 'assets/img/products/jeansjacke-03.png',      alt: 'Oversize-Jeansjacke, Detail' }
+  { src: 'assets/img/products/jeansjacke-02.jpg',      alt: 'Oversize-Jeansjacke' },
+  { src: 'assets/img/products/bluse-02.jpg',           alt: 'Bluse' },
+  { src: 'assets/img/products/military-blazer-01.jpg', alt: 'Military Blazer' },
+  { src: 'assets/img/products/jeansjacke-03.jpg',      alt: 'Oversize-Jeansjacke, Detail' }
 ];
 
 /* Hero-Bild: bevorzugt die Aufnahme mit dem schwarzen Rock. */
 window.FREDA_HERO_IMAGE = {
-  src: 'assets/img/products/rock-taschen-01.png',
+  /* Eigene, unbeschnittene Fassung – im Hero deckt das Layout selbst ab. */
+  src: 'assets/img/products/hero-rock.jpg',
   alt: 'Look mit weitem schwarzem Rock von Freda Style'
 };

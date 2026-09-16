@@ -127,7 +127,7 @@
 
 .hero__media { position: relative; }
 /* Mobil bewusst flacher, damit Headline und Buttons ohne Scrollen sichtbar sind. */
-.hero__media .media { --media-ratio: 1 / 1; max-height: 54dvh; }
+.hero__media .media { --media-ratio: 4 / 5; max-height: 56dvh; }
 .hero__media img { animation: hero-zoom 2.4s var(--ease) both; }
 @keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
 
@@ -152,6 +152,9 @@
   /* Das Bild bleibt frei von Text – Gesicht und Look werden nicht verdeckt. */
   .hero__media { order: 2; }
   .hero__media .media { --media-ratio: auto; height: 100%; max-height: none; }
+  /* Bildausschnitt so gelegt, dass Gesicht UND die volle Rocksilhouette
+     sichtbar bleiben - "top" wuerde den Rock unten abschneiden. */
+  .hero__media img { object-position: center 45%; }
   .hero__content {
     order: 1;
     justify-content: center;
@@ -209,12 +212,12 @@
 .story__value span { font-size: var(--fs-xs); color: var(--c-muted); letter-spacing: 0.06em; }
 
 .story__media { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-4); }
-.story__media .media { --media-ratio: 3 / 4; }
+.story__media .media { --media-ratio: 2 / 3; }
 @media (min-width: 900px) { .story__media > *:first-child { transform: translateY(-28px); } }
 
 /* --- 7 Lookbook ------------------------------------------------- */
 .lookbook__grid { display: grid; grid-template-columns: 1fr; gap: var(--s-4); }
-.lookbook__item .media { --media-ratio: 3 / 4; }
+.lookbook__item .media { --media-ratio: 2 / 3; }
 .lookbook__item figcaption {
   margin-top: var(--s-2);
   font-size: var(--fs-xs);
@@ -233,8 +236,8 @@
   .lookbook__item--tall  { grid-column: span 3; }
   .lookbook__item--wide  { grid-column: span 3; }
   .lookbook__item--small { grid-column: span 2; }
-  .lookbook__item--tall  .media { --media-ratio: 3 / 4; }
-  .lookbook__item--wide  .media { --media-ratio: 4 / 5; }
+  .lookbook__item--tall  .media { --media-ratio: 2 / 3; }
+  .lookbook__item--wide  .media { --media-ratio: 3 / 4; }
   .lookbook__item--small .media { --media-ratio: 1 / 1; }
   /* Asymmetrie: einzelne Elemente versetzt */
   .lookbook__item:nth-child(2) { margin-top: var(--s-7); }

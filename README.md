@@ -45,18 +45,27 @@ bash scripts/import-images.sh
 Das Skript legt verständlich benannte **Kopien** unter
 `assets/img/products/` ab. Die Originale bleiben unverändert.
 
-| Original | Kopie | Produkt |
+| Datei | Produkt | Format |
 | --- | --- | --- |
-| `Screenshot 2026-09-16 181847.png` | `military-blazer-01.png` | Military Blazer |
-| `Screenshot 2026-09-16 181920.png` | `military-blazer-02.png` | Military Blazer |
-| `Screenshot 2026-09-16 181933.png` | `rock-taschen-01.png` | Weiter Rock mit Taschen |
-| `Screenshot 2026-09-16 182011.png` | `bluse-01.png` | Bluse |
-| `Screenshot 2026-09-16 182029.png` | `bluse-02.png` | Bluse |
-| `4b77a0da-…-49c7cd54eb4d.png` | `jeansjacke-01.png` | Oversize-Jeansjacke |
-| `Screenshot 2026-09-16 182217.png` | `jeansjacke-02.png` | Oversize-Jeansjacke |
-| `Screenshot 2026-09-16 182234.png` | `jeansjacke-03.png` | Oversize-Jeansjacke |
-| `Screenshot 2026-09-16 182245.png` | `jeansjacke-04.png` | Oversize-Jeansjacke |
-| `bca65629-…-3b21911289b.png` | `jeansjacke-05.png` | Oversize-Jeansjacke |
+| `military-blazer-01.jpg` | Military Blazer, getragen | 2:3 |
+| `military-blazer-02.jpg` | Military Blazer, Bügel | 2:3 |
+| `rock-taschen-01.jpg` | Weiter Rock mit Taschen | 2:3 |
+| `hero-rock.jpg` | dasselbe Motiv, unbeschnitten – nur für den Hero | Original |
+| `bluse-01.jpg` | Bluse, Detailansicht | 2:3 |
+| `bluse-02.jpg` | Bluse, ganzer Look | 2:3 |
+| `jeansjacke-01.jpg` | Oversize-Jeansjacke | 2:3 |
+| `jeansjacke-02.jpg` | Oversize-Jeansjacke | 2:3 |
+| `jeansjacke-03.jpg` | Oversize-Jeansjacke, Detail | 2:3 |
+
+Die Originale liegen unverändert in `upload/`. Die Fassungen in
+`assets/img/products/` sind daraus erzeugt: auf ein einheitliches Format 2:3
+beschnitten (Gesichter und Produktdetails bleiben vollständig) und als
+progressives JPEG gespeichert. Das reduziert die Bildlast von rund 3,4 MB auf
+etwa 0,5 MB.
+
+**Neue Bilder ergänzen:** Datei in `assets/img/products/` legen und den Pfad in
+`assets/js/products.js` eintragen. Das Zuschneiden übernimmt sonst der Browser
+per `object-fit: cover`.
 
 **Fehlt eine Bilddatei**, zeigt die Seite an dieser Stelle einen dezenten
 Platzhalter im Markendesign („Bild folgt“) statt eines kaputten Bildsymbols.
