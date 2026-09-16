@@ -105,19 +105,53 @@
     return typeof CFG.whatsappNumber === 'string' && /^\d{8,15}$/.test(CFG.whatsappNumber.trim());
   }
 
+  function waUrl(message) {
+    if (!hasWhatsApp()) return null;
+    return 'https://wa.me/' + CFG.whatsappNumber.trim() +
+           '?text=' + encodeURIComponent(message);
+  }
+
+  /* WhatsApp-Aktionen sind echte Links, keine window.open-Aufrufe.
+     window.open wird von Vorschau-Rahmen und Popup-Blockern verschluckt,
+     ein <a target="_blank"> funktioniert dagegen ueberall - und laesst
+     sich zusaetzlich per Rechtsklick oder langem Tippen oeffnen. */
+  function makeWhatsAppLink(el, message) {
+    var url = waUrl(message);
+    if (!url) return;                       /* ohne Nummer bleibt es ein Button */
+    if (el.tagName === 'A') {
+      el.href = url;
+      return;
+    }
+    var link = document.createElement('a');
+    link.className = el.className;
+    link.textContent = el.textContent.trim();
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    Array.prototype.forEach.call(el.attributes, function (attr) {
+      if (attr.name.indexOf('data-') === 0) link.setAttribute(attr.name, attr.value);
+    });
+    el.parentNode.replaceChild(link, el);
+  }
+
+  /* Nur noch fuer den Fall ohne hinterlegte Nummer. */
   function openWhatsApp(message) {
-    if (!hasWhatsApp()) {
+    var url = waUrl(message);
+    if (!url) {
       toast(CFG.whatsappMissingHint, 'gold');
       return false;
     }
-    var url = 'https://wa.me/' + CFG.whatsappNumber.trim() +
-              '?text=' + encodeURIComponent(message);
     window.open(url, '_blank', 'noopener,noreferrer');
     return true;
   }
 
   function productMessage(product, variant) {
-    return 'Hallo, ich interessiere mich für den ' + product.title +
+    /* Ohne hinterlegten Artikel neutral formulieren - "den EMO Bluse"
+       waere schlicht falsch. */
+    var name = product.article
+      ? product.article + ' ' + product.title
+      : 'den Artikel „' + product.title + '“';
+    return 'Hallo, ich interessiere mich für ' + name +
            variantSentence(product, variant) +
            ' für ' + formatPrice(product.price) +
            '. Ist der Artikel noch verfügbar?';
@@ -546,8 +580,15 @@
             '</div>' +
             '<button class="btn btn--block" type="button" data-add' +
               (needsChoice || !available ? ' disabled' : '') + '>In den Warenkorb</button>' +
-            '<button class="btn btn--wa btn--block" type="button" data-wa-product>' +
-              'Über WhatsApp anfragen</button>' +
+            (function () {
+              var url = waUrl(productMessage(p, state.variant));
+              return url
+                ? '<a class="btn btn--wa btn--block" href="' + escapeHtml(url) + '" ' +
+                  'target="_blank" rel="noopener noreferrer" data-wa-product>' +
+                  'Über WhatsApp anfragen</a>'
+                : '<button class="btn btn--wa btn--block" type="button" data-wa-product>' +
+                  'Über WhatsApp anfragen</button>';
+            })() +
           '</div>' +
         '</div>';
     }
@@ -584,7 +625,8 @@
         return;
       }
 
-      if (event.target.closest('[data-wa-product]')) {
+      var wa = event.target.closest('[data-wa-product]');
+      if (wa && wa.tagName !== 'A') {
         openWhatsApp(productMessage(state.product, state.variant));
       }
     }
@@ -648,6 +690,9 @@
       }).join('') + '</div>';
 
       $('[data-cart-subtotal]').textContent = formatPrice(Cart.subtotal());
+
+      var waButton = $('[data-wa-cart]', panel);
+      if (waButton) makeWhatsAppLink(waButton, cartMessage());
     }
 
     function onClick(event) {
@@ -668,7 +713,8 @@
         return;
       }
 
-      if (event.target.closest('[data-wa-cart]')) {
+      var waCart = event.target.closest('[data-wa-cart]');
+      if (waCart && waCart.tagName !== 'A') {
         var message = cartMessage();
         if (message) openWhatsApp(message);
       }
@@ -785,7 +831,8 @@
 
       if (event.target.closest('[data-close-panel]')) { Panels.close(); return; }
 
-      if (event.target.closest('[data-wa-beratung]')) {
+      var beratung = event.target.closest('[data-wa-beratung]');
+      if (beratung && beratung.tagName !== 'A') {
         event.preventDefault();
         openWhatsApp(BERATUNG_MSG);
         return;
@@ -824,6 +871,10 @@
       el.textContent = String(new Date().getFullYear());
     });
     $$('[data-cfg-brand]').forEach(function (el) { el.textContent = CFG.brandName; });
+
+    $$('[data-wa-beratung]').forEach(function (el) {
+      makeWhatsAppLink(el, BERATUNG_MSG);
+    });
 
     renderHero();
     renderGrid();

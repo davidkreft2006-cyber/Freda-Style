@@ -17,6 +17,9 @@
    material      Materialangabe oder null
    description   Beschreibungstext
    badge         kurzer Hinweis auf der Karte oder null
+   article       Artikel im Akkusativ fuer die WhatsApp-Nachricht:
+                 'den', 'die' oder 'das'. Fehlt der Wert, wird neutral
+                 "den Artikel ..." formuliert.
    images        Bildpfade, das erste Bild ist das Hauptbild
    options       Namen der Auswahlfelder, z. B. ['Farbe','Groesse']
    variants      je Variante: { id, options, available, image, imageNote }
@@ -30,6 +33,7 @@
 window.FREDA_PRODUCTS = [
   {
     handle: 'emo-military-blazer',
+    article: 'den',
     title: 'EMO Military Blazer',
     price: 13900,
     material: null,
@@ -51,6 +55,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-weiter-rock-mit-taschen',
+    article: 'den',
     title: 'EMO weiter Rock mit Taschen',
     price: 6900,
     material: 'Baumwolle',
@@ -76,6 +81,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-bluse',
+    article: 'die',
     title: 'EMO Bluse',
     price: 6500,
     material: '80 % Baumwolle',
@@ -108,6 +114,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-jeansjacke-oversize',
+    article: 'die',
     title: 'EMO Jeansjacke Oversize',
     price: 10900,
     material: '100 % Baumwolle',
