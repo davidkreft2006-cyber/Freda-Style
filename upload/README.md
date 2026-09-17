@@ -16,11 +16,11 @@ Screenshot 2026-09-16 182245.png      Oversize-Jeansjacke
 bca65629-08bf-4a50-a34d-c3b21911289b.png   Oversize-Jeansjacke
 ```
 
-Danach im Ordner `freda-style/` ausführen:
+Danach im Projektordner ausführen:
 
 ```bash
-bash scripts/import-images.sh
+python3 scripts/prepare-images.py
 ```
 
-Das Skript legt umbenannte Kopien in `assets/img/products/` ab.
+Das Skript legt aufbereitete Kopien in `assets/img/products/` ab.
 Die Originale bleiben unverändert erhalten.

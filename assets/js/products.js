@@ -142,12 +142,21 @@ window.FREDA_PRODUCTS = [
    Es werden ausschliesslich vorhandene Produktbilder verwendet.
    ------------------------------------------------------------- */
 window.FREDA_LOOKBOOK = [
-  { src: 'assets/img/products/rock-taschen-01.jpg',    alt: 'Weiter Rock mit Taschen',      size: 'tall'  },
-  { src: 'assets/img/products/military-blazer-01.jpg', alt: 'Military Blazer',              size: 'wide'  },
-  { src: 'assets/img/products/bluse-01.jpg',           alt: 'Bluse mit Ärmeldetails',       size: 'small' },
-  { src: 'assets/img/products/jeansjacke-01.jpg',      alt: 'Oversize-Jeansjacke',          size: 'tall'  },
-  { src: 'assets/img/products/military-blazer-02.jpg', alt: 'Military Blazer, Detailblick', size: 'small' },
-  { src: 'assets/img/products/bluse-02.jpg',           alt: 'Bluse im Look',                size: 'wide'  }
+  /* Bewusst ohne das Rock-Motiv: das steht bereits im Hero.
+     Fuenf Kacheln mit den Groessen 3+3 und 2+2+2 fuellen die zwei
+     Reihen des Rasters exakt aus. */
+  { src: 'assets/img/products/military-blazer-01.jpg', alt: 'Military Blazer',              size: 'tall'  },
+  { src: 'assets/img/products/bluse-02.jpg',           alt: 'Bluse im Look',                size: 'wide'  },
+  { src: 'assets/img/products/jeansjacke-01.jpg',      alt: 'Oversize-Jeansjacke',          size: 'small' },
+  { src: 'assets/img/products/jeansjacke-02.jpg',      alt: 'Oversize-Jeansjacke im Look',  size: 'small' },
+  { src: 'assets/img/products/jeansjacke-03.jpg',      alt: 'Oversize-Jeansjacke, Detail',  size: 'small' }
+];
+
+/* Markenbereich: eigene Auswahl, damit nicht dasselbe Motiv wie im
+   Hero und im Lookbook ein drittes Mal auf der Startseite steht. */
+window.FREDA_STORY_IMAGES = [
+  { src: 'assets/img/products/bluse-01.jpg',           alt: 'Bluse mit Ärmeldetails' },
+  { src: 'assets/img/products/military-blazer-02.jpg', alt: 'Military Blazer' }
 ];
 
 /* Instagram-inspirierter Bereich: echte Produktbilder, kein Fake-Feed. */
@@ -162,5 +171,10 @@ window.FREDA_INSTAGRAM_TILES = [
 window.FREDA_HERO_IMAGE = {
   /* Eigene, unbeschnittene Fassung des Rock-Motivs. */
   src: 'assets/img/products/hero-rock.jpg',
-  alt: 'Look mit weitem schwarzem Rock von Freda Style'
+  alt: 'Look mit weitem schwarzem Rock von Freda Style',
+  /* Seitenverhaeltnis des Fotos. Steht es hier, reserviert der Browser
+     den Platz sofort richtig und das Layout rutscht beim Laden nicht.
+     Beim Bildwechsel mit anpassen - sonst korrigiert es das Skript,
+     dann aber erst nach dem Laden. */
+  ratio: '429 / 679'
 };

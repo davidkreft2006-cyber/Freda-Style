@@ -342,7 +342,11 @@
     slot.innerHTML = mediaMarkup(
       window.FREDA_HERO_IMAGE.src,
       window.FREDA_HERO_IMAGE.alt,
-      { eager: true, sizes: '(min-width: 900px) 50vw, 100vw' }
+      {
+        eager: true,
+        sizes: '(min-width: 900px) 50vw, 100vw',
+        ratio: window.FREDA_HERO_IMAGE.ratio   /* verhindert das Nachrutschen */
+      }
     );
 
     /* Der Rahmen uebernimmt das echte Seitenverhaeltnis des Fotos, damit
@@ -447,7 +451,8 @@
   function renderStoryMedia() {
     var slot = $('[data-story-media]');
     if (!slot) return;
-    var picks = (window.FREDA_LOOKBOOK || []).slice(0, 2);
+    var picks = window.FREDA_STORY_IMAGES ||
+                (window.FREDA_LOOKBOOK || []).slice(0, 2);
     slot.innerHTML = picks.map(function (item) {
       return '<div data-reveal>' +
              mediaMarkup(item.src, item.alt, { sizes: '(min-width: 900px) 25vw, 50vw' }) +

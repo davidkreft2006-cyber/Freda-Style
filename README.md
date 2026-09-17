@@ -35,40 +35,40 @@ aber die zuverlässigere Variante.
 
 ## Produktbilder einbinden
 
-Die Originalfotos gehören in den Ordner `upload/` (siehe `upload/README.md`).
-Danach:
+Die Originalfotos liegen unverändert in `upload/`. Daraus erzeugt ein Skript
+die Fassungen, die die Webseite lädt:
 
 ```bash
-bash scripts/import-images.sh
+pip install Pillow
+python3 scripts/prepare-images.py
 ```
 
-Das Skript legt verständlich benannte **Kopien** unter
-`assets/img/products/` ab. Die Originale bleiben unverändert.
+Das Skript schneidet dunkle Randstreifen ab (kommen bei Screenshots vor),
+bringt die Bilder auf ein einheitliches 2:3 und speichert sie als
+progressives JPEG. Das drückt die Bildlast von rund 3,9 MB auf 0,5 MB.
 
-| Datei | Produkt | Format |
+| Datei | Quelle | Produkt |
 | --- | --- | --- |
-| `military-blazer-01.jpg` | Military Blazer, getragen | 2:3 |
-| `military-blazer-02.jpg` | Military Blazer, Bügel | 2:3 |
-| `bluse-01.jpg` | Bluse, Detailansicht | 2:3 |
-| `bluse-02.jpg` | Bluse, ganzer Look | 2:3 |
-| `rock-taschen-01.jpg` | Weiter Rock mit Taschen | 2:3 |
-| `hero-rock.jpg` | dasselbe Motiv, unbeschnitten – **Hero-Bild** | Original |
-| `jeansjacke-01.jpg` | Oversize-Jeansjacke | 2:3 |
-| `jeansjacke-02.jpg` | Oversize-Jeansjacke | 2:3 |
-| `jeansjacke-03.jpg` | Oversize-Jeansjacke, Detail | 2:3 |
+| `military-blazer-01.jpg` | `image (2).png` | Military Blazer, getragen |
+| `military-blazer-02.jpg` | `image (3).png` | Military Blazer, Bügel |
+| `rock-taschen-01.jpg` | `image (11).png` | Weiter Rock mit Taschen |
+| `hero-rock.jpg` | `image (11).png` | dasselbe Motiv, unbeschnitten – **Hero** |
+| `bluse-01.jpg` | `image (5).png` | Bluse, Detailansicht |
+| `bluse-02.jpg` | `image (6).png` | Bluse, ganzer Look |
+| `jeansjacke-01.jpg` | `image (7).png` | Oversize-Jeansjacke |
+| `jeansjacke-02.jpg` | `image (9).png` | Oversize-Jeansjacke |
+| `jeansjacke-03.jpg` | `image (8).png` | Oversize-Jeansjacke, Detail |
 
-Die Originale liegen unverändert in `upload/`. Die Fassungen in
-`assets/img/products/` sind daraus erzeugt: auf ein einheitliches Format 2:3
-beschnitten (Gesichter und Produktdetails bleiben vollständig) und als
-progressives JPEG gespeichert. Das reduziert die Bildlast von rund 3,4 MB auf
-etwa 0,5 MB.
+**Neues Foto ergänzen:** Datei nach `upload/` legen, in `scripts/prepare-images.py`
+unter `JOBS` eine Zeile ergänzen, Skript laufen lassen, Pfad in
+`assets/js/products.js` eintragen.
 
-**Neue Bilder ergänzen:** Datei in `assets/img/products/` legen und den Pfad in
-`assets/js/products.js` eintragen. Das Zuschneiden übernimmt sonst der Browser
-per `object-fit: cover`.
+**Hero-Motiv wechseln:** zusätzlich `ratio` bei `FREDA_HERO_IMAGE` auf das
+Seitenverhältnis des neuen Fotos setzen – sonst rutscht das Layout beim Laden
+kurz nach.
 
 **Fehlt eine Bilddatei**, zeigt die Seite an dieser Stelle einen dezenten
-Platzhalter im Markendesign („Bild folgt“) statt eines kaputten Bildsymbols.
+Platzhalter im Markendesign („Bild folgt") statt eines kaputten Bildsymbols.
 Die Seite läuft dadurch immer fehlerfrei.
 
 ---
@@ -133,6 +133,7 @@ In derselben Datei stehen außerdem:
 | --- | --- |
 | `FREDA_HERO_IMAGE` | Bild im Hero-Bereich |
 | `FREDA_LOOKBOOK` | Bilder im Editorial-Lookbook (`size`: `tall`, `wide`, `small`) |
+| `FREDA_STORY_IMAGES` | Bilder im Markenbereich „Mit Liebe ausgewählt" |
 | `FREDA_INSTAGRAM_TILES` | Bilder im Instagram-Bereich |
 
 > **Später in Shopify** pflegt die Betreiberin Produkte, Preise, Varianten,
@@ -178,7 +179,7 @@ freda-style/
 │       ├── monogram-fs.svg        FS-Monogramm
 │       ├── favicon.svg            vereinfachtes Monogramm
 │       └── products/              importierte Produktbilder
-├── scripts/import-images.sh
+├── scripts/prepare-images.py
 ├── upload/                     Originalfotos
 ├── README.md
 └── SHOPIFY_MIGRATION.md
