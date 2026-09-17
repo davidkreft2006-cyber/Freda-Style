@@ -39,11 +39,11 @@
   transition: height var(--dur) var(--ease);
 }
 .header.is-stuck .header__inner { height: calc(var(--header-h) - 12px); }
-.header .logo img {
-  width: clamp(132px, 16vw, 186px);
+.header .logo__mark {
+  width: clamp(178px, 22vw, 248px);
   transition: width var(--dur) var(--ease);
 }
-.header.is-stuck .logo img { width: clamp(118px, 13vw, 156px); }
+.header.is-stuck .logo__mark { width: clamp(158px, 19vw, 214px); }
 
 .nav { display: none; }
 @media (min-width: 900px) {
@@ -69,6 +69,11 @@
 }
 
 .header__actions { display: flex; align-items: center; gap: var(--s-1); }
+/* Unter 420 px braucht das groessere Logo den Platz. Instagram bleibt
+   ueber das mobile Menue und den Footer erreichbar. */
+@media (max-width: 419px) {
+  .header__actions > a.icon-btn { display: none; }
+}
 .header__cart { position: relative; }
 .header__burger { display: inline-flex; }
 @media (min-width: 900px) { .header__burger { display: none; } }

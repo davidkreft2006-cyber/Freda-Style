@@ -201,13 +201,19 @@ Shopify Section.
 
 | Datei | Verwendung |
 | --- | --- |
-| `assets/img/logo-freda-style.svg` | Wortmarke **FREDA STYLE** – Header, Footer |
-| `assets/img/monogram-fs.svg` | ineinandergreifendes **FS**-Monogramm – Footer, leerer Warenkorb, Bildplatzhalter |
+| `assets/img/logo-freda-style.svg` | volle Wortmarke mit Unterzeile und Goldlinie – Footer |
+| `assets/img/logo-freda-style-compact.svg` | kompakte Wortmarke ohne Unterzeile – Header |
+| `assets/img/monogram-fs.svg` | ineinandergreifendes **FS**-Monogramm – leerer Warenkorb, Bildplatzhalter, Favicon |
 | `assets/img/favicon.svg` | vereinfachtes Monogramm für den Browser-Tab |
 
 Gestaltung: klassische Serife, weit gesperrt, Schwarz auf warmem Creme mit einer
 sehr zurückhaltenden Goldlinie. Das Monogramm funktioniert einfarbig und bleibt
 auch bei 16 px lesbar.
+
+Beide Wortmarken sind in `index.html` **direkt eingebettet** statt über `<img>`
+geladen. Das ist Absicht: Ein per `<img>` eingebundenes SVG erbt `currentColor`
+nicht und würde im dunklen Footer schwarz auf schwarz erscheinen. Die
+SVG-Dateien bleiben als eigenständige Markendateien erhalten.
 
 ---
 
