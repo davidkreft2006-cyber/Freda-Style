@@ -40,10 +40,10 @@
 }
 .header.is-stuck .header__inner { height: calc(var(--header-h) - 12px); }
 .header .logo__mark {
-  width: clamp(178px, 22vw, 248px);
+  width: clamp(196px, 24vw, 262px);
   transition: width var(--dur) var(--ease);
 }
-.header.is-stuck .logo__mark { width: clamp(158px, 19vw, 214px); }
+.header.is-stuck .logo__mark { width: clamp(176px, 21vw, 232px); }
 
 .nav { display: none; }
 @media (min-width: 900px) {

@@ -41,17 +41,27 @@
 <header class="header" data-header>
   <div class="u-wrap header__inner">
     <a class="logo" href="#top" aria-label="Freda Style – Startseite">
-      <!-- Kompakte Fassung ohne Unterzeile: die Buchstaben duerfen hier
-           die volle Hoehe nutzen und bleiben dadurch gut lesbar.
+      <!-- Dieselbe Fassung wie im Footer: Wortmarke, Goldlinie und
+           Unterzeile. Die Unterzeile ist bewusst groesser gesetzt als
+           im ersten Entwurf, sonst ist sie bei Header-Groesse unlesbar.
            Direkt eingebettet, damit "currentColor" greift - ein ueber
            <img> geladenes SVG erbt die Textfarbe naemlich NICHT. -->
-      <svg class="logo__mark" viewBox="0 0 560 62" role="img" aria-label="FREDA STYLE">
+      <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Boutique">
         <title>FREDA STYLE</title>
-        <text x="280" y="46" text-anchor="middle"
+        <text x="280" y="50" text-anchor="middle"
               textLength="536" lengthAdjust="spacing"
               font-family="'Cormorant Garamond','Cormorant','Didot','Bodoni MT','Times New Roman',serif"
-              font-size="54" font-weight="500" letter-spacing="12"
+              font-size="56" font-weight="500" letter-spacing="12"
               fill="currentColor">FREDA STYLE</text>
+        <g opacity="0.9">
+          <line x1="150" y1="72" x2="252" y2="72" stroke="#B08D4F" stroke-width="1.6"/>
+          <line x1="308" y1="72" x2="410" y2="72" stroke="#B08D4F" stroke-width="1.6"/>
+          <circle cx="280" cy="72" r="3" fill="#B08D4F"/>
+        </g>
+        <text x="280" y="96" text-anchor="middle"
+              font-family="'Jost','Inter','Helvetica Neue',Arial,sans-serif"
+              font-size="22" font-weight="400" letter-spacing="11"
+              fill="currentColor" opacity="0.78">BOUTIQUE</text>
       </svg>
     </a>
 
@@ -275,22 +285,22 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="logo logo--footer" href="#top" aria-label="Freda Style – Startseite">
-          <svg class="logo__mark" viewBox="0 0 560 96" role="img" aria-label="FREDA STYLE">
+          <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Boutique">
             <title>FREDA STYLE</title>
-            <text x="280" y="52" text-anchor="middle"
-                  textLength="500" lengthAdjust="spacing"
+            <text x="280" y="50" text-anchor="middle"
+                  textLength="536" lengthAdjust="spacing"
                   font-family="'Cormorant Garamond','Cormorant','Didot','Bodoni MT','Times New Roman',serif"
-                  font-size="46" font-weight="400" letter-spacing="14"
+                  font-size="56" font-weight="500" letter-spacing="12"
                   fill="currentColor">FREDA STYLE</text>
-            <g opacity="0.85">
-              <line x1="150" y1="72" x2="268" y2="72" stroke="#B08D4F" stroke-width="1"/>
-              <line x1="292" y1="72" x2="410" y2="72" stroke="#B08D4F" stroke-width="1"/>
-              <circle cx="280" cy="72" r="2.4" fill="#B08D4F"/>
+            <g opacity="0.9">
+              <line x1="150" y1="72" x2="252" y2="72" stroke="#B08D4F" stroke-width="1.6"/>
+              <line x1="308" y1="72" x2="410" y2="72" stroke="#B08D4F" stroke-width="1.6"/>
+              <circle cx="280" cy="72" r="3" fill="#B08D4F"/>
             </g>
-            <text x="280" y="90" text-anchor="middle"
+            <text x="280" y="96" text-anchor="middle"
                   font-family="'Jost','Inter','Helvetica Neue',Arial,sans-serif"
-                  font-size="11" font-weight="400" letter-spacing="7"
-                  fill="currentColor" opacity="0.7">BOUTIQUE</text>
+                  font-size="22" font-weight="400" letter-spacing="11"
+                  fill="currentColor" opacity="0.78">BOUTIQUE</text>
           </svg>
         </a>
 

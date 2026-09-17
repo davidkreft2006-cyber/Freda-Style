@@ -201,8 +201,8 @@ Shopify Section.
 
 | Datei | Verwendung |
 | --- | --- |
-| `assets/img/logo-freda-style.svg` | volle Wortmarke mit Unterzeile und Goldlinie – Footer |
-| `assets/img/logo-freda-style-compact.svg` | kompakte Wortmarke ohne Unterzeile – Header |
+| `assets/img/logo-freda-style.svg` | Hauptfassung: Wortmarke, Goldlinie, Unterzeile – Header und Footer |
+| `assets/img/logo-freda-style-compact.svg` | Alternative ohne Unterzeile, für sehr kleine Platzierungen – derzeit nicht im Einsatz |
 | `assets/img/monogram-fs.svg` | ineinandergreifendes **FS**-Monogramm – leerer Warenkorb, Bildplatzhalter, Favicon |
 | `assets/img/favicon.svg` | vereinfachtes Monogramm für den Browser-Tab |
 

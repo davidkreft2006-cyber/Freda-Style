@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 62" role="img" aria-label="FREDA STYLE">
   <title>FREDA STYLE</title>
-  <!-- Kopfzeilen-Fassung: nur die Wortmarke, enger Rahmen.
-       Dadurch werden die Buchstaben bei gleicher Breite rund doppelt
-       so gross wie in der vollen Fassung mit Unterzeile. -->
+  <!-- Alternative ohne Unterzeile, fuer sehr kleine oder sehr schmale
+       Platzierungen. Auf der Webseite derzeit nicht im Einsatz. -->
   <text x="280" y="46"
         text-anchor="middle"
         textLength="536" lengthAdjust="spacing"
