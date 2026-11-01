@@ -27,6 +27,7 @@
    Button ein, sonst rutschten sie hinter den Seitenhintergrund.
 */
 .btn {
+  --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E");
   --btn-bg: var(--c-ink);        /* Flaeche im Ruhezustand */
   --btn-fg: var(--c-cream);      /* Schrift im Ruhezustand */
   --btn-bd: var(--c-ink);        /* Rahmen                 */
@@ -110,6 +111,33 @@
   --btn-bg: transparent; --btn-fg: var(--c-ink); --btn-bd: var(--c-gold);
   --btn-fill: var(--c-gold); --btn-fg-on: #fff;
 }
+
+/* Button mit Pfeil. Der Pfeil sitzt im rechten Innenabstand, also
+   ausserhalb des Textes - im Ruhezustand ist er sichtbar, beim Hover
+   rueckt er ein Stueck nach rechts. Umgesetzt als Maske, damit er die
+   Schriftfarbe uebernimmt und beim Farbwechsel mitgeht. */
+.btn--arrow { padding-right: calc(var(--s-6) + 1.5rem); }
+.btn--arrow::after {
+  content: '';
+  position: absolute;
+  right: var(--s-5);
+  width: 1rem;
+  height: 1rem;
+  inset-block: 0;
+  margin-block: auto;
+  background: currentColor;
+  -webkit-mask: var(--arrow) center / contain no-repeat;
+  mask: var(--arrow) center / contain no-repeat;
+  transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn--arrow:hover::after,
+.btn--arrow:focus-visible::after { transform: translateX(5px); }
+
+/* Der Pfeil liegt auf ::after, das sonst die Grundflaeche traegt -
+   die uebernimmt hier deshalb ein Innenschatten. */
+.btn--arrow::after { z-index: 1; }
+.btn--arrow { background: var(--btn-bg); }
+.btn--arrow::before { z-index: 0; }
 
 .btn--block { width: 100%; }
 

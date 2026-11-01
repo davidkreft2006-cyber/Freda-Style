@@ -54,6 +54,18 @@
      ============================================================ -->
 <header class="header" data-header>
   <div class="u-wrap header__inner">
+    <div class="header__side header__side--left">
+      <button class="icon-btn header__burger" type="button" data-open-menu aria-label="Menü öffnen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+      <nav class="nav nav--left" aria-label="Hauptnavigation">
+        <a href="#neuheiten">Neuheiten</a>
+        <a href="#shop">Shop</a>
+      </nav>
+    </div>
+
     <a class="logo" href="#top" aria-label="Freda Style – Startseite">
       <!-- Dieselbe Fassung wie im Footer: Wortmarke, Goldlinie und
            Unterzeile. Die Unterzeile ist bewusst groesser gesetzt als
@@ -79,36 +91,31 @@
       </svg>
     </a>
 
-    <nav class="nav" aria-label="Hauptnavigation">
-      <a href="#neuheiten">Neuheiten</a>
-      <a href="#shop">Shop</a>
-      <a href="#ueber-uns">Über uns</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
+    <div class="header__side header__side--right">
+      <nav class="nav nav--right" aria-label="Weitere Seiten">
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
 
-    <div class="header__actions">
-      <a class="icon-btn" href="https://www.instagram.com/freda_style/" target="_blank"
-         rel="noopener noreferrer" data-cfg-instagram aria-label="Freda Style auf Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-          <circle cx="12" cy="12" r="4"></circle>
-          <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
-        </svg>
-      </a>
+      <div class="header__actions">
+        <a class="icon-btn" href="https://www.instagram.com/freda_style/" target="_blank"
+           rel="noopener noreferrer" data-cfg-instagram aria-label="Freda Style auf Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
 
-      <button class="icon-btn header__cart" type="button" data-open-cart aria-label="Warenkorb öffnen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-          <path d="M6 8h12l-1 12H7L6 8Z"></path>
-          <path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"></path>
-        </svg>
-        <span class="count" data-cart-count>0</span>
-      </button>
+        <button class="icon-btn header__cart" type="button" data-open-cart aria-label="Warenkorb öffnen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M6 8h12l-1 12H7L6 8Z"></path>
+            <path d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"></path>
+          </svg>
+          <span class="count" data-cart-count>0</span>
+        </button>
 
-      <button class="icon-btn header__burger" type="button" data-open-menu aria-label="Menü öffnen">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16"></path>
-        </svg>
-      </button>
+      </div>
     </div>
   </div>
   <!-- Zeigt beim Scrollen, wie weit man auf der Seite ist. -->
@@ -126,6 +133,9 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__grid">
       <div class="hero__media" data-hero-media></div>
+      <!-- Dunkler Verlauf nur unten: haelt die Schrift lesbar und laesst
+           Gesicht und Look im oberen Bildteil frei. -->
+      <div class="hero__scrim" aria-hidden="true"></div>
 
       <div class="hero__content">
         <p class="u-eyebrow">Boutique · Italien</p>
@@ -135,8 +145,8 @@
           elegant, modern und mit besonderen Details.
         </p>
         <div class="hero__actions">
-          <a class="btn" href="#shop">Kollektion entdecken</a>
-          <button class="btn btn--wa" type="button" data-wa-beratung>
+          <a class="btn btn--arrow" href="#shop">Kollektion entdecken</a>
+          <button class="btn btn--light" type="button" data-wa-beratung>
             Über WhatsApp beraten lassen
           </button>
         </div>
@@ -150,13 +160,11 @@
        ============================================================ -->
   <section class="section" id="shop" aria-labelledby="shop-title">
     <div class="u-wrap">
-      <div class="section__head section__head--split" data-reveal>
-        <div>
-          <p class="u-eyebrow" id="neuheiten">Neuheiten</p>
-          <h2 class="section__title" id="shop-title">Unsere Auswahl</h2>
-          <hr class="u-rule">
-        </div>
-        <p class="hero__sub" style="max-width:38ch">
+      <div class="section__head section__head--center" data-reveal>
+        <p class="u-eyebrow" id="neuheiten">Neuheiten</p>
+        <h2 class="section__title" id="shop-title">Unsere Auswahl</h2>
+        <hr class="u-rule">
+        <p class="section__lead">
           Jedes Stück wird persönlich ausgewählt und aus Italien bezogen –
           in kleiner Stückzahl, nicht beliebig.
         </p>

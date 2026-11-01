@@ -30,14 +30,27 @@
 }
 .header.is-stuck { border-bottom-color: var(--c-line); }
 
+/* Drei Spalten: links Navigation bzw. Menue, mittig das Logo, rechts
+   die Symbole. Die Aussenspalten sind gleich breit, damit das Logo
+   wirklich mittig sitzt und nicht verrutscht. */
 .header__inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: var(--s-4);
   height: var(--header-h);
   transition: height var(--dur) var(--ease);
 }
+.header__inner > * { grid-row: 1; }
+.header__side {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  min-width: 0;
+}
+.header__side--left  { grid-column: 1; justify-self: start; }
+.header__inner > .logo { grid-column: 2; justify-self: center; }
+.header__side--right { grid-column: 3; justify-self: end; }
 .header.is-stuck .header__inner { height: calc(var(--header-h) - 12px); }
 .header .logo__mark {
   width: clamp(196px, 24vw, 262px);
@@ -184,25 +197,88 @@
 }
 .section__title { font-size: var(--fs-xl); }
 
-/* --- 3 Hero ---------------------------------------------------- */
-.hero { background: var(--c-cream); overflow: hidden; }
-.hero__grid { display: grid; grid-template-columns: 1fr; }
+.section__head--center {
+  align-items: center;
+  text-align: center;
+  max-width: 54ch;
+  margin-inline: auto;
+}
+.section__head--center .u-rule { margin-inline: auto; }
+.section__lead { color: var(--c-ink-soft); max-width: 46ch; }
 
-.hero__media { position: relative; }
-/* Das Seitenverhaeltnis setzt das Skript aus dem jeweiligen Hero-Foto.
-   Der Wert hier ist nur der Rueckfall, bis das Bild geladen ist. */
-.hero__media .media { --media-ratio: 2 / 3; max-height: none; }
-.hero__media img { animation: hero-zoom 2.4s var(--ease) both; }
-@keyframes hero-zoom { from { transform: scale(1.06); } to { transform: none; } }
+/* --- 3 Hero ---------------------------------------------------- */
+/* Das Foto fuellt die Flaeche, Headline und Buttons liegen darauf.
+   Der Text sitzt unten links - dort, wo im Motiv nichts Wichtiges
+   steht, sodass Gesicht und Look frei bleiben. */
+.hero { position: relative; background: var(--c-ink); overflow: hidden; }
+.hero__grid {
+  position: relative;
+  display: grid;
+  min-height: 78dvh;
+}
+@media (min-width: 900px) {
+  .hero__grid { min-height: min(92dvh, 860px); }
+}
+
+.hero__media { position: absolute; inset: 0; }
+.hero__media .media {
+  aspect-ratio: auto;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  background: var(--c-ink);
+}
+.hero__media img {
+  object-position: center 28%;
+  animation: hero-zoom 2.6s var(--ease) both;
+}
+@keyframes hero-zoom { from { transform: scale(1.07); } to { transform: none; } }
+
+/* Verlauf nur im unteren Drittel - oben bleibt das Bild unberuehrt. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(17, 17, 17, 0) 14%,
+      rgba(17, 17, 17, 0.30) 46%,
+      rgba(17, 17, 17, 0.66) 72%,
+      rgba(17, 17, 17, 0.86) 100%
+    ),
+    /* leichter Zug nach links: dort steht der Text */
+    linear-gradient(
+      to right,
+      rgba(17, 17, 17, 0.52) 0%,
+      rgba(17, 17, 17, 0.26) 38%,
+      rgba(17, 17, 17, 0) 68%
+    );
+}
 
 .hero__content {
+  position: relative;
+  align-self: end;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--s-4);
-  padding: var(--s-6) var(--gutter) var(--s-7);
+  gap: var(--s-3);
+  padding: var(--s-7) var(--gutter) var(--s-6);
+  color: var(--c-cream);
+  max-width: 44rem;
 }
+.hero__content .u-eyebrow { color: rgba(247, 243, 236, 0.75); }
 .hero__title { font-size: var(--fs-2xl); max-width: 14ch; }
+.hero__sub { max-width: 42ch; color: rgba(247, 243, 236, 0.86); font-size: var(--fs-md); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-3); }
+.hero__actions .btn { flex: 1 1 200px; }
+@media (min-width: 560px) { .hero__actions .btn { flex: 0 0 auto; } }
+@media (min-width: 900px) {
+  .hero__content { padding: var(--s-8) clamp(2rem, 5vw, 5rem) var(--s-8); }
+}
+
+/* Auf dem Bild braucht der helle Button einen kraeftigeren Rahmen. */
+.hero__actions .btn--light { --btn-bd: rgba(247, 243, 236, 0.8); }
 
 /* Jedes Wort sitzt in einem Fenster und steigt daraus hervor.
    "is-split" setzt das Skript erst, wenn die Woerter aufgeteilt sind -
@@ -219,46 +295,16 @@
   animation: word-rise 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 @keyframes word-rise { to { transform: none; } }
-.hero__sub { max-width: 46ch; color: var(--c-ink-soft); font-size: var(--fs-md); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-2); }
-.hero__actions .btn { flex: 1 1 220px; }
-
-@media (min-width: 900px) {
-  /* Die Bildspalte ist "auto" breit - sie nimmt exakt die Breite an, die
-     das Bild bei voller Hoehe hat. Dadurch entsteht kein Rand neben dem
-     Bild, und das Foto laeuft buendig bis an den rechten Rand. */
-  .hero__grid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: stretch;
-  }
-  /* Das Bild bleibt frei von Text – Gesicht und Look werden nicht verdeckt. */
-  .hero__media { order: 2; }
-  .hero__media .media {
-    height: calc(100dvh - var(--header-h));
-    min-height: 520px;
-    width: auto;         /* folgt der Hoehe ueber das Seitenverhaeltnis */
-    max-width: 58vw;     /* bei sehr hohen Fenstern nicht uebermaechtig */
-  }
-  .hero__content {
-    order: 1;
-    justify-content: center;
-    padding: var(--s-8) clamp(2rem, 5vw, 5.5rem) var(--s-8) var(--gutter);
-  }
-  .hero__actions .btn { flex: 0 0 auto; }
-}
 
 .hero__scroll {
   display: none;
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  color: var(--c-muted);
-  margin-top: var(--s-6);
+  color: rgba(247, 243, 236, 0.72);
+  margin-top: var(--s-5);
 }
 @media (min-width: 900px) { .hero__scroll { display: inline-flex; align-items: center; gap: var(--s-3); } }
-/* Ruhige Linie mit einem Lichtschein, der einmal langsam durchlaeuft.
-   Die frühere Fassung pulste in Deckkraft und Breite - das wirkte
-   unruhig und flackerte. */
 .hero__scroll::after {
   content: '';
   width: 64px;
