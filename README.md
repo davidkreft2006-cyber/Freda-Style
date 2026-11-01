@@ -217,6 +217,36 @@ SVG-Dateien bleiben als eigenständige Markendateien erhalten.
 
 ---
 
+## Bewegung und Feinschliff
+
+| Wo | Was passiert |
+| --- | --- |
+| Hero-Headline | steigt beim Laden Wort für Wort auf |
+| Buttons | beim Hover wächst ein Kreis aus der Mitte und füllt die Fläche |
+| Produktkarten | Bildwechsel und Zoom beim Hover, Quick View |
+| Sektionen | sanftes Einblenden beim Scrollen |
+
+Die Buttons sehen im Ruhezustand unverändert aus – neu ist nur die Bewegung.
+Umgesetzt ohne zusätzliches Markup über zwei Pseudo-Elemente, damit die
+Buttons einfache `<button>`- und `<a>`-Elemente bleiben und sich unverändert
+nach Shopify Liquid übertragen lassen.
+
+Alle Animationen respektieren `prefers-reduced-motion`: Wer Bewegung
+reduziert hat, bekommt die Seite ohne Animationen, mit dem schlichten
+Farbwechsel von vorher.
+
+## Vorschau beim Teilen
+
+`assets/img/og-share.jpg` (1200 × 630) erscheint als Vorschaubild, wenn der
+Link über WhatsApp, Instagram oder andere Dienste verschickt wird.
+
+> **TODO:** In `index.html` bei `og:image` die **vollständige** Adresse
+> eintragen, sobald die Domain feststeht – z. B.
+> `https://freda-style.de/assets/img/og-share.jpg`. Manche Dienste lesen
+> relative Pfade nicht.
+
+Neu erzeugen lässt sich das Bild mit `scripts/make-share-image.py`.
+
 ## Warenkorb (Demo)
 
 * Produkte hinzufügen, entfernen, Menge ändern

@@ -10,17 +10,39 @@
 .monogram { width: var(--mono-w, 44px); color: currentColor; }
 
 /* --- Buttons ------------------------------------------------- */
+/*
+   Im Ruhezustand sehen die Buttons unveraendert aus. Neu ist nur die
+   Bewegung beim Hover: Statt die Farbe flach zu wechseln, waechst ein
+   Kreis aus der Mitte heraus und fuellt die Flaeche.
+
+   Aufbau ohne zusaetzliches Markup - die Buttons bleiben einfache
+   <button>- und <a>-Elemente, damit sie sich spaeter unveraendert nach
+   Shopify Liquid uebertragen lassen:
+
+     ::after   Grundflaeche (z-index -2)
+     ::before  wachsender Kreis (z-index -1)
+     Text      liegt als Inhalt darueber
+
+   "isolation: isolate" sperrt die negativen z-index-Ebenen in den
+   Button ein, sonst rutschten sie hinter den Seitenhintergrund.
+*/
 .btn {
-  --btn-bg: var(--c-ink);
-  --btn-fg: var(--c-cream);
-  --btn-bd: var(--c-ink);
+  --btn-bg: var(--c-ink);        /* Flaeche im Ruhezustand */
+  --btn-fg: var(--c-cream);      /* Schrift im Ruhezustand */
+  --btn-bd: var(--c-ink);        /* Rahmen                 */
+  --btn-fill: var(--c-cream);    /* Farbe des Kreises      */
+  --btn-fg-on: var(--c-ink);     /* Schrift waehrend Hover */
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
   min-height: 48px;
   padding: 0 var(--s-6);
-  background: var(--btn-bg);
+  background: transparent;
   color: var(--btn-fg);
   border: 1px solid var(--btn-bd);
   border-radius: var(--radius);
@@ -30,23 +52,64 @@
   font-weight: 400;
   text-align: center;
   cursor: pointer;
+  /* Die Schriftfarbe springt hart um, statt ueberzublenden - und zwar
+     genau dann, wenn der Kreis die Flaeche schon deckt (ab etwa 40 ms).
+     Ein weicher Uebergang waere hier schlechter: Der Text stuende sonst
+     kurz hell auf hell oder dunkel auf dunkel.
+     Beim Verlassen laeuft es in der Gegenrichtung entsprechend spaeter. */
   transition:
-    background var(--dur) var(--ease),
-    color var(--dur) var(--ease),
+    color 0s linear 90ms,
     border-color var(--dur) var(--ease),
     transform var(--dur-fast) var(--ease);
 }
-.btn:hover  { --btn-bg: transparent; --btn-fg: var(--c-ink); }
-.btn:active { transform: translateY(1px); }
 
-.btn--ghost { --btn-bg: transparent; --btn-fg: var(--c-ink); --btn-bd: var(--c-ink); }
-.btn--ghost:hover { --btn-bg: var(--c-ink); --btn-fg: var(--c-cream); }
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--btn-bg);
+}
 
-.btn--light { --btn-bg: transparent; --btn-fg: var(--c-cream); --btn-bd: rgba(247,243,236,.55); }
-.btn--light:hover { --btn-bg: var(--c-cream); --btn-fg: var(--c-ink); --btn-bd: var(--c-cream); }
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 150%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--btn-fill);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 620ms cubic-bezier(0.19, 1, 0.22, 1);
+}
 
-.btn--wa { --btn-bg: transparent; --btn-fg: var(--c-ink); --btn-bd: var(--c-gold); }
-.btn--wa:hover { --btn-bg: var(--c-gold); --btn-fg: #fff; }
+.btn:hover,
+.btn:focus-visible {
+  color: var(--btn-fg-on);
+  transition-delay: 55ms, 0s, 0s;
+}
+.btn:hover::before,
+.btn:focus-visible::before { transform: translate(-50%, -50%) scale(1); }
+
+.btn:active { transform: scale(0.97); }
+
+/* Varianten: nur Farben, die Bewegung ist ueberall dieselbe. */
+.btn--ghost {
+  --btn-bg: transparent; --btn-fg: var(--c-ink); --btn-bd: var(--c-ink);
+  --btn-fill: var(--c-ink); --btn-fg-on: var(--c-cream);
+}
+.btn--light {
+  --btn-bg: transparent; --btn-fg: var(--c-cream); --btn-bd: rgba(247,243,236,.55);
+  --btn-fill: var(--c-cream); --btn-fg-on: var(--c-ink);
+}
+.btn--light:hover,
+.btn--light:focus-visible { border-color: var(--c-cream); }
+.btn--wa {
+  --btn-bg: transparent; --btn-fg: var(--c-ink); --btn-bd: var(--c-gold);
+  --btn-fill: var(--c-gold); --btn-fg-on: #fff;
+}
 
 .btn--block { width: 100%; }
 
@@ -55,6 +118,15 @@
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* Wer Bewegung reduziert haben moechte, bekommt den schlichten
+   Farbwechsel von vorher. */
+@media (prefers-reduced-motion: reduce) {
+  .btn::before { display: none; }
+  .btn:hover, .btn:focus-visible { color: var(--btn-fg-on); }
+  .btn:hover::after,
+  .btn:focus-visible::after { background: var(--btn-fill); }
 }
 
 .link-underline {

@@ -336,6 +336,33 @@
   /* ==========================================================
      Rendering: Hero, Produktraster, Lookbook, Instagram
      ========================================================== */
+  /* Headline Wort fuer Wort aufsteigen lassen.
+     Die Woerter werden aus dem vorhandenen Text gebaut, der Inhalt im
+     HTML bleibt unveraendert - ohne JavaScript steht die Zeile einfach
+     da. Wer Bewegung reduziert hat, bekommt sie ebenfalls sofort. */
+  function animateHeadline() {
+    var title = $('[data-split]');
+    if (!title) return;
+
+    var reduced = window.matchMedia &&
+                  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    var words = title.textContent.trim().split(/\s+/);
+    title.textContent = '';
+    words.forEach(function (word, i) {
+      var mask = document.createElement('span');
+      mask.className = 'word';
+      var inner = document.createElement('span');
+      inner.textContent = word;
+      inner.style.animationDelay = (80 + i * 90) + 'ms';
+      mask.appendChild(inner);
+      title.appendChild(mask);
+      if (i < words.length - 1) title.appendChild(document.createTextNode(' '));
+    });
+    title.classList.add('is-split');
+  }
+
   function renderHero() {
     var slot = $('[data-hero-media]');
     if (!slot || !window.FREDA_HERO_IMAGE) return;
@@ -900,6 +927,7 @@
       makeWhatsAppLink(el, BERATUNG_MSG);
     });
 
+    animateHeadline();
     renderHero();
     renderGrid();
     renderStoryMedia();
