@@ -102,6 +102,64 @@
   border-top: 1px solid var(--c-line);
 }
 
+/* Fortschrittslinie am unteren Rand des Headers.
+   Moderne Browser zeichnen sie ueber eine Scroll-Timeline, ganz ohne
+   JavaScript. Wo das fehlt, setzt das Skript die Breite - siehe
+   initScrollbar() in app.js. */
+.scrollbar {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  .scrollbar {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes scroll-progress { to { transform: scaleX(1); } }
+
+/* --- Laufband -------------------------------------------------- */
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--c-line);
+  padding-block: var(--s-4);
+  background: var(--c-cream);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.marquee__group b {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.7rem);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.marquee__group i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-inline: clamp(1.4rem, 3vw, 3rem);
+  border-radius: 50%;
+  background: var(--c-gold);
+  flex: 0 0 auto;
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
 /* --- Sektionsrahmen ------------------------------------------- */
 .section { padding-block: var(--s-8); }
 @media (min-width: 900px) { .section { padding-block: var(--s-9); } }
@@ -198,16 +256,22 @@
   margin-top: var(--s-6);
 }
 @media (min-width: 900px) { .hero__scroll { display: inline-flex; align-items: center; gap: var(--s-3); } }
+/* Ruhige Linie mit einem Lichtschein, der einmal langsam durchlaeuft.
+   Die frühere Fassung pulste in Deckkraft und Breite - das wirkte
+   unruhig und flackerte. */
 .hero__scroll::after {
   content: '';
-  width: 54px; height: 1px;
-  background: var(--c-gold);
-  animation: scroll-line 2.6s var(--ease) infinite;
-  transform-origin: left;
+  width: 64px;
+  height: 1px;
+  background:
+    linear-gradient(90deg, transparent, var(--c-gold) 50%, transparent)
+      -60% 0 / 45% 100% no-repeat,
+    var(--c-gold-soft);
+  animation: scroll-sheen 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
-@keyframes scroll-line {
-  0%, 100% { transform: scaleX(0.35); opacity: 0.5; }
-  50%      { transform: scaleX(1);    opacity: 1;   }
+@keyframes scroll-sheen {
+  from { background-position: -60% 0; }
+  to   { background-position: 170% 0; }
 }
 
 /* --- 4 Featured Collection / Product Grid ---------------------- */
@@ -251,7 +315,26 @@
   text-transform: uppercase;
   color: var(--c-muted);
 }
+/* Im Lookbook wandern die Bilder beim Scrollen leicht im Rahmen.
+   Das ergibt Tiefe, ohne dass sich das Layout bewegt. Nur dort, wo der
+   Browser Scroll-Timelines kennt - sonst bleibt das Bild schlicht
+   stehen, und der Hover-Zoom greift wie bisher. */
 @media (hover: hover) { .lookbook__item:hover img { transform: scale(1.05); } }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lookbook__item img {
+      animation: image-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    .lookbook__item:hover img { transform: none; }
+  }
+}
+@keyframes image-drift {
+  from { transform: scale(1.12) translateY(-3.5%); }
+  to   { transform: scale(1.12) translateY(3.5%); }
+}
 
 @media (min-width: 768px) {
   .lookbook__grid {

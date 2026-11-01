@@ -820,6 +820,29 @@
     document.addEventListener('reveal:refresh', observeAll);
   }
 
+  /* Fortschrittslinie im Header.
+     Browser mit Scroll-Timelines erledigen das in CSS; nur wo das
+     fehlt, springt dieses Skript ein. */
+  function initScrollbar() {
+    var bar = $('[data-scrollbar]');
+    if (!bar) return;
+    if (window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()')) return;
+
+    var ticking = false;
+    function update() {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var fortschritt = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      bar.style.transform = 'scaleX(' + fortschritt + ')';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
   function initHeader() {
     var header = $('[data-header]');
     if (!header) return;
@@ -938,6 +961,7 @@
     renderCount();
 
     initHeader();
+    initScrollbar();
     initReveal();
     initNewsletter();
     initGlobalClicks();

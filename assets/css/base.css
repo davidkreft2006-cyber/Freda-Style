@@ -86,6 +86,11 @@ html {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  /* Scroll-gesteuerte Animationen richten sich nicht nach der Dauer,
+     deshalb werden sie hier ausdruecklich abgeschaltet. */
+  .lookbook__item img,
+  .marquee__track { animation: none !important; }
+  .scrollbar { display: none; }
 }
 
 body {

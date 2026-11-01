@@ -111,6 +111,8 @@
       </button>
     </div>
   </div>
+  <!-- Zeigt beim Scrollen, wie weit man auf der Seite ist. -->
+  <span class="scrollbar" data-scrollbar aria-hidden="true"></span>
 </header>
 
 <main id="main">
@@ -198,6 +200,28 @@
       <div class="story__media" data-story-media></div>
     </div>
   </section>
+
+  <!-- ============================================================
+       SECTION: Laufband
+       Rein dekorativ, deshalb aria-hidden. Der Inhalt steht zweimal
+       im Markup, damit die Schleife nahtlos umlaeuft.
+       ============================================================ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__group">
+        <b>Persönlich ausgewählt</b><i></i>
+        <b>Aus Italien bezogen</b><i></i>
+        <b>Individuelle Beratung</b><i></i>
+        <b>Kleine Stückzahl</b><i></i>
+      </span>
+      <span class="marquee__group">
+        <b>Persönlich ausgewählt</b><i></i>
+        <b>Aus Italien bezogen</b><i></i>
+        <b>Individuelle Beratung</b><i></i>
+        <b>Kleine Stückzahl</b><i></i>
+      </span>
+    </div>
+  </div>
 
   <!-- ============================================================
        SECTION: Lookbook
