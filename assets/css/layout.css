@@ -321,6 +321,233 @@
 }
 
 /* --- 4 Featured Collection / Product Grid ---------------------- */
+/* Shop: links die Filterleiste, rechts die Produkte. */
+.shop { display: grid; gap: var(--s-5); }
+@media (min-width: 900px) {
+  .shop {
+    grid-template-columns: 226px minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+}
+
+/* Knopf, der auf dem Handy die Schublade oeffnet. */
+.shop__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  align-self: start;
+  min-height: 46px;
+  padding: 0 var(--s-5);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  background: var(--c-paper);
+}
+.shop__toggle svg { width: 17px; height: 17px; }
+.shop__toggle-count {
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--c-ink);
+  color: var(--c-cream);
+  font-size: 0.64rem;
+  line-height: 19px;
+  text-align: center;
+}
+@media (min-width: 900px) { .shop__toggle { display: none; } }
+
+/* --- Die Leiste selbst ------------------------------------------ */
+.filter {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(330px, 86vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--c-paper);
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform var(--dur) var(--ease), visibility var(--dur);
+  box-shadow: var(--shadow-soft);
+}
+.shop.is-filter-open .filter { transform: none; visibility: visible; }
+
+.filter__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--c-line);
+}
+.filter__body { flex: 1 1 auto; overflow-y: auto; padding: var(--s-2) var(--s-5); }
+.filter__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  border-top: 1px solid var(--c-line);
+}
+.filter__count { font-size: var(--fs-sm); color: var(--c-muted); }
+.filter__reset {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 34px;
+}
+
+/* Ab Tablet steht sie fest in der Spalte, nichts faehrt mehr herein. */
+@media (min-width: 900px) {
+  .filter {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+    width: auto;
+    transform: none;
+    visibility: visible;
+    background: transparent;
+    box-shadow: none;
+    max-height: calc(100dvh - var(--header-h) - var(--s-6));
+  }
+  .filter__head { display: none; }
+  .filter__body { padding: 0; }
+  .filter__foot { padding: var(--s-4) 0 0; }
+}
+
+/* --- Eine aufklappbare Gruppe ----------------------------------- */
+.fgroup { border-bottom: 1px solid var(--c-line); }
+.fgroup:last-child { border-bottom: 0; }
+.fgroup__head { margin: 0; }
+.fgroup__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--s-4) 0;
+  font-family: var(--f-body);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  text-align: left;
+}
+.fgroup__toggle svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  transition: transform var(--dur) var(--ease);
+}
+.fgroup.is-closed .fgroup__toggle svg { transform: rotate(-90deg); }
+
+.fgroup__body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--dur) var(--ease);
+}
+.fgroup.is-closed .fgroup__body { grid-template-rows: 0fr; }
+.fgroup__list { overflow: hidden; }
+.fgroup__list > li:last-child .fopt { margin-bottom: var(--s-4); }
+
+/* --- Ein Filtereintrag ------------------------------------------- */
+.fopt {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 38px;
+  cursor: pointer;
+  font-size: var(--fs-sm);
+}
+.fopt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.fopt__box {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--c-line);
+  border-radius: 1px;
+  transition: background var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+}
+.fopt:hover .fopt__box { border-color: var(--c-ink); }
+.fopt input:checked + .fopt__box {
+  background: var(--c-ink) var(--check) center / 11px no-repeat;
+  border-color: var(--c-ink);
+}
+.fopt input:focus-visible + .fopt__box { outline: 2px solid var(--c-gold); outline-offset: 2px; }
+.fopt__text { flex: 1 1 auto; }
+.fopt__n { font-size: var(--fs-xs); color: var(--c-muted); font-variant-numeric: tabular-nums; }
+.fopt.is-empty { opacity: 0.38; cursor: not-allowed; }
+
+/* --- Kopfzeile ueber den Produkten ------------------------------- */
+.shop__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-4);
+  margin-bottom: var(--s-5);
+  min-height: 34px;
+}
+.shop__count {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+@media (min-width: 900px) { .shop__count { display: none; } }
+.shop__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+/* Sammelknopf neben den Chips - auf dem Handy ist die Leiste zu, dort
+   waere "Zuruecksetzen" sonst nicht erreichbar. */
+.shop__reset {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: 32px;
+  white-space: nowrap;
+}
+.shop__reset:hover { color: var(--c-ink); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 32px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: 100px;
+  background: var(--c-paper);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+.chip:hover { border-color: var(--c-ink); }
+.chip svg { width: 12px; height: 12px; opacity: 0.6; }
+
+.shop__empty {
+  padding: var(--s-8) 0;
+  text-align: center;
+  color: var(--c-muted);
+}
+.shop__empty button {
+  display: block;
+  margin: var(--s-3) auto 0;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--c-ink);
+}
+
 .grid-products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

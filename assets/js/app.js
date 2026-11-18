@@ -425,6 +425,7 @@
 
   /* Groessen erscheinen in der gewohnten Reihenfolge, nicht in Datenreihenfolge. */
   var SIZE_ORDER = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'UNI'];
+  var SIZE_LABEL = 'Gr' + '\u00f6' + '\u00dfe';
 
   function optionValues(product, index) {
     if (index < 0) return [];
@@ -442,14 +443,199 @@
     return seen;
   }
 
-  function renderGrid() {
+  function renderGrid(liste) {
     var grid = $('[data-product-grid]');
     if (!grid) return;
-    grid.innerHTML = PRODUCTS.map(function (product, i) {
-      return '<div data-reveal style="--reveal-delay:' + (i * 90) + 'ms">' +
+    var produkte = liste || PRODUCTS;
+    grid.innerHTML = produkte.map(function (product, i) {
+      return '<div data-reveal style="--reveal-delay:' + (i * 70) + 'ms">' +
              cardMarkup(product) + '</div>';
     }).join('');
+    document.dispatchEvent(new CustomEvent('reveal:refresh'));
   }
+
+  /* ==========================================================
+     Filter: Kategorie, Groesse, Farbe
+     Die Auswahlmoeglichkeiten entstehen aus den Produktdaten -
+     neue Produkte erweitern die Leiste von selbst.
+     ========================================================== */
+  var Filter = (function () {
+    var aktiv = { category: [], 'Groesse': [], 'Farbe': [] };
+    var gruppen = [];
+
+    function werteAusOption(name) {
+      var werte = [];
+      PRODUCTS.forEach(function (p) {
+        var i = p.options.indexOf(name);
+        if (i < 0) return;
+        p.variants.forEach(function (v) {
+          if (werte.indexOf(v.options[i]) === -1) werte.push(v.options[i]);
+        });
+      });
+      if (name === SIZE_LABEL) {
+        werte.sort(function (a, b) {
+          var ia = SIZE_ORDER.indexOf(a), ib = SIZE_ORDER.indexOf(b);
+          return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+        });
+      }
+      return werte;
+    }
+
+    function kategorien() {
+      var vorgabe = (window.FREDA_CATEGORIES || []).slice();
+      var vorhanden = [];
+      PRODUCTS.forEach(function (p) {
+        if (p.category && vorhanden.indexOf(p.category) === -1) vorhanden.push(p.category);
+      });
+      var sortiert = vorgabe.filter(function (k) { return vorhanden.indexOf(k) !== -1; });
+      vorhanden.forEach(function (k) {
+        if (sortiert.indexOf(k) === -1) sortiert.push(k);
+      });
+      return sortiert;
+    }
+
+    /* Ein Produkt passt, wenn es in JEDER Gruppe mindestens einen
+       gewaehlten Wert trifft. Innerhalb einer Gruppe gilt "oder". */
+    function passt(p) {
+      if (aktiv.category.length && aktiv.category.indexOf(p.category) === -1) return false;
+      return gruppen.every(function (g) {
+        if (g.key === 'category') return true;
+        var gewaehlt = aktiv[g.key];
+        if (!gewaehlt || !gewaehlt.length) return true;
+        var i = p.options.indexOf(g.option);
+        if (i < 0) return false;
+        return p.variants.some(function (v) {
+          return gewaehlt.indexOf(v.options[i]) !== -1;
+        });
+      });
+    }
+
+    function treffer() { return PRODUCTS.filter(passt); }
+
+    function anzahlGewaehlt() {
+      return Object.keys(aktiv).reduce(function (n, k) { return n + aktiv[k].length; }, 0);
+    }
+
+    /* Wie viele Produkte blieben uebrig, wenn dieser Wert dazukaeme? */
+    function vorschau(gruppe, wert) {
+      var sicherung = aktiv[gruppe].slice();
+      if (aktiv[gruppe].indexOf(wert) === -1) aktiv[gruppe] = aktiv[gruppe].concat([wert]);
+      var n = treffer().length;
+      aktiv[gruppe] = sicherung;
+      return n;
+    }
+
+    function zeichneGruppen() {
+      var slot = $('[data-filter-groups]');
+      if (!slot) return;
+      slot.innerHTML = gruppen.map(function (g) {
+        return '<section class="fgroup">' +
+          '<h3 class="fgroup__head">' +
+            '<button type="button" class="fgroup__toggle" aria-expanded="true" data-toggle-group>' +
+              escapeHtml(g.label) +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+                'stroke-width="1.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>' +
+            '</button>' +
+          '</h3>' +
+          '<div class="fgroup__body"><ul class="fgroup__list">' +
+            g.werte.map(function (wert) {
+              var gewaehlt = aktiv[g.key].indexOf(wert) !== -1;
+              var n = vorschau(g.key, wert);
+              var leer = n === 0 && !gewaehlt;
+              return '<li><label class="fopt' + (leer ? ' is-empty' : '') + '">' +
+                '<input type="checkbox" data-filter-group="' + escapeHtml(g.key) + '" ' +
+                  'value="' + escapeHtml(wert) + '"' + (gewaehlt ? ' checked' : '') +
+                  (leer ? ' disabled' : '') + '>' +
+                '<span class="fopt__box" aria-hidden="true"></span>' +
+                '<span class="fopt__text">' + escapeHtml(wert) + '</span>' +
+                '<span class="fopt__n">' + n + '</span>' +
+              '</label></li>';
+            }).join('') +
+          '</ul></div>' +
+        '</section>';
+      }).join('');
+    }
+
+    function zeichneChips() {
+      var slot = $('[data-filter-chips]');
+      if (!slot) return;
+      var chips = [];
+      gruppen.forEach(function (g) {
+        aktiv[g.key].forEach(function (wert) {
+          chips.push('<button class="chip" type="button" data-remove-group="' +
+            escapeHtml(g.key) + '" data-remove-value="' + escapeHtml(wert) + '">' +
+            escapeHtml(wert) +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" ' +
+            'aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>');
+        });
+      });
+      slot.innerHTML = chips.join('');
+    }
+
+    function anwenden() {
+      var liste = treffer();
+      renderGrid(liste);
+
+      $$('[data-filter-count]').forEach(function (el) { el.textContent = liste.length; });
+      var leer = $('[data-filter-empty]');
+      if (leer) leer.hidden = liste.length > 0;
+
+      var n = anzahlGewaehlt();
+      $$('[data-filter-reset]').forEach(function (el) { el.hidden = n === 0; });
+      var badge = $('[data-filter-badge]');
+      if (badge) { badge.textContent = n; badge.hidden = n === 0; }
+
+      zeichneGruppen();
+      zeichneChips();
+    }
+
+    function umschalten(gruppe, wert) {
+      if (!aktiv[gruppe]) return;
+      var i = aktiv[gruppe].indexOf(wert);
+      if (i === -1) aktiv[gruppe].push(wert); else aktiv[gruppe].splice(i, 1);
+      anwenden();
+    }
+
+    function zuruecksetzen() {
+      Object.keys(aktiv).forEach(function (k) { aktiv[k] = []; });
+      anwenden();
+    }
+
+    return {
+      init: function () {
+        if (!$('[data-filter-groups]')) { renderGrid(); return; }
+
+        gruppen = [
+          { key: 'category',  option: null,       label: 'Kategorie', werte: kategorien() },
+          { key: SIZE_LABEL,  option: SIZE_LABEL, label: SIZE_LABEL,  werte: werteAusOption(SIZE_LABEL) },
+          { key: 'Farbe',     option: 'Farbe',    label: 'Farbe',     werte: werteAusOption('Farbe') }
+        ].filter(function (g) { return g.werte.length > 1; });
+
+        gruppen.forEach(function (g) { if (!aktiv[g.key]) aktiv[g.key] = []; });
+
+        document.addEventListener('change', function (event) {
+          var box = event.target.closest('[data-filter-group]');
+          if (box) umschalten(box.dataset.filterGroup, box.value);
+        });
+
+        document.addEventListener('click', function (event) {
+          var chip = event.target.closest('[data-remove-group]');
+          if (chip) { umschalten(chip.dataset.removeGroup, chip.dataset.removeValue); return; }
+
+          if (event.target.closest('[data-filter-reset]')) { zuruecksetzen(); return; }
+
+          var kopf = event.target.closest('[data-toggle-group]');
+          if (kopf) {
+            var offen = kopf.getAttribute('aria-expanded') === 'true';
+            kopf.setAttribute('aria-expanded', String(!offen));
+            kopf.closest('.fgroup').classList.toggle('is-closed', offen);
+          }
+        });
+
+        anwenden();
+      }
+    };
+  })();
 
   function renderLookbook() {
     var grid = $('[data-lookbook]');
@@ -823,6 +1009,40 @@
   /* Fortschrittslinie im Header.
      Browser mit Scroll-Timelines erledigen das in CSS; nur wo das
      fehlt, springt dieses Skript ein. */
+  /* Filter-Schublade auf schmalen Displays.
+     Ab Tablet steht die Leiste fest in der Spalte, dann macht der
+     Knopf nichts - er ist dort ausgeblendet. */
+  function initFilterDrawer() {
+    var shop = $('.shop');
+    if (!shop) return;
+    var knopf = $('[data-open-filter]');
+
+    function setzen(offen) {
+      shop.classList.toggle('is-filter-open', offen);
+      document.body.classList.toggle('is-locked', offen);
+      if (knopf) knopf.setAttribute('aria-expanded', String(offen));
+    }
+
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('[data-open-filter]')) { setzen(true); return; }
+      if (event.target.closest('[data-close-filter]')) { setzen(false); return; }
+      /* Klick neben die geoeffnete Schublade schliesst sie. */
+      if (shop.classList.contains('is-filter-open') &&
+          !event.target.closest('[data-filter]')) {
+        setzen(false);
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && shop.classList.contains('is-filter-open')) setzen(false);
+    });
+
+    /* Beim Wechsel auf die breite Ansicht nicht gesperrt zurueckbleiben. */
+    var breit = window.matchMedia('(min-width: 900px)');
+    var aufBreit = function (e) { if (e.matches) setzen(false); };
+    if (breit.addEventListener) breit.addEventListener('change', aufBreit);
+  }
+
   function initScrollbar() {
     var bar = $('[data-scrollbar]');
     if (!bar) return;
@@ -952,7 +1172,7 @@
 
     animateHeadline();
     renderHero();
-    renderGrid();
+    Filter.init();
     renderStoryMedia();
     renderLookbook();
     renderInstagram();
@@ -961,6 +1181,7 @@
     renderCount();
 
     initHeader();
+    initFilterDrawer();
     initScrollbar();
     initReveal();
     initNewsletter();

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Boutique">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Clothing Store">
   <title>FREDA STYLE</title>
   <!-- Hauptfassung: Wortmarke, Goldlinie, Unterzeile.
        Die Unterzeile ist bewusst kraeftig gesetzt, damit sie auch bei
@@ -17,6 +17,6 @@
   <text x="280" y="96"
         text-anchor="middle"
         font-family="'Jost','Inter','Helvetica Neue',Arial,sans-serif"
-        font-size="22" font-weight="400" letter-spacing="11"
-        fill="currentColor" opacity="0.78">BOUTIQUE</text>
+        font-size="19" font-weight="400" letter-spacing="7"
+        fill="currentColor" opacity="0.78">CLOTHING STORE</text>
 </svg>

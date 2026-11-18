@@ -72,7 +72,7 @@
            im ersten Entwurf, sonst ist sie bei Header-Groesse unlesbar.
            Direkt eingebettet, damit "currentColor" greift - ein ueber
            <img> geladenes SVG erbt die Textfarbe naemlich NICHT. -->
-      <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Boutique">
+      <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Clothing Store">
         <title>FREDA STYLE</title>
         <text x="280" y="50" text-anchor="middle"
               textLength="536" lengthAdjust="spacing"
@@ -86,8 +86,8 @@
         </g>
         <text x="280" y="96" text-anchor="middle"
               font-family="'Jost','Inter','Helvetica Neue',Arial,sans-serif"
-              font-size="22" font-weight="400" letter-spacing="11"
-              fill="currentColor" opacity="0.78">BOUTIQUE</text>
+              font-size="19" font-weight="400" letter-spacing="7"
+              fill="currentColor" opacity="0.78">CLOTHING STORE</text>
       </svg>
     </a>
 
@@ -138,7 +138,7 @@
       <div class="hero__scrim" aria-hidden="true"></div>
 
       <div class="hero__content">
-        <p class="u-eyebrow">Boutique · Italien</p>
+        <p class="u-eyebrow">Clothing Store · Italien</p>
         <h1 class="hero__title" id="hero-title" data-split>Mode, die in Erinnerung bleibt.</h1>
         <p class="hero__sub">
           Freda Style bringt persönlich ausgewählte Looks aus Italien zu dir –
@@ -170,7 +170,46 @@
         </p>
       </div>
 
-      <div class="grid-products" data-product-grid></div>
+      <!-- Links die Filterleiste, rechts die Produkte.
+           Auf dem Handy faehrt die Leiste als Schublade herein. -->
+      <div class="shop">
+        <button class="shop__toggle" type="button" data-open-filter aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M4 6h16M7 12h10M10 18h4"></path>
+          </svg>
+          <span>Filter &amp; Kategorien</span>
+          <span class="shop__toggle-count" data-filter-badge hidden>0</span>
+        </button>
+
+        <aside class="filter" data-filter aria-label="Filter und Kategorien">
+          <div class="filter__head">
+            <span class="panel__title">Filter</span>
+            <button class="icon-btn filter__close" type="button" data-close-filter aria-label="Filter schließen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="filter__body" data-filter-groups></div>
+          <div class="filter__foot">
+            <p class="filter__count"><span data-filter-count>0</span> Artikel</p>
+            <button class="filter__reset" type="button" data-filter-reset hidden>Zurücksetzen</button>
+          </div>
+        </aside>
+
+        <div class="shop__results">
+          <div class="shop__bar">
+            <p class="shop__count"><span data-filter-count>0</span> Artikel</p>
+            <div class="shop__chips" data-filter-chips></div>
+            <button class="shop__reset" type="button" data-filter-reset hidden>Alle entfernen</button>
+          </div>
+          <div class="grid-products" data-product-grid></div>
+          <p class="shop__empty" data-filter-empty hidden>
+            Zu dieser Auswahl gibt es derzeit kein Stück.
+            <button type="button" data-filter-reset>Filter zurücksetzen</button>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -331,7 +370,7 @@
     <div class="footer__grid">
       <div class="footer__brand">
         <a class="logo logo--footer" href="#top" aria-label="Freda Style – Startseite">
-          <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Boutique">
+          <svg class="logo__mark" viewBox="0 0 560 104" role="img" aria-label="FREDA STYLE Clothing Store">
             <title>FREDA STYLE</title>
             <text x="280" y="50" text-anchor="middle"
                   textLength="536" lengthAdjust="spacing"
@@ -345,8 +384,8 @@
             </g>
             <text x="280" y="96" text-anchor="middle"
                   font-family="'Jost','Inter','Helvetica Neue',Arial,sans-serif"
-                  font-size="22" font-weight="400" letter-spacing="11"
-                  fill="currentColor" opacity="0.78">BOUTIQUE</text>
+                  font-size="19" font-weight="400" letter-spacing="7"
+                  fill="currentColor" opacity="0.78">CLOTHING STORE</text>
           </svg>
         </a>
 

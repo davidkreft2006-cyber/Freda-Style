@@ -17,6 +17,8 @@
    material      Materialangabe oder null
    description   Beschreibungstext
    badge         kurzer Hinweis auf der Karte oder null
+   category      Kategorie fuer die Filterleiste. Entspricht spaeter
+                 dem Shopify-Feld "Produkttyp".
    article       Artikel im Akkusativ fuer die WhatsApp-Nachricht:
                  'den', 'die' oder 'das'. Fehlt der Wert, wird neutral
                  "den Artikel ..." formuliert.
@@ -33,6 +35,7 @@
 window.FREDA_PRODUCTS = [
   {
     handle: 'emo-military-blazer',
+    category: 'Blazer',
     article: 'den',
     title: 'EMO Military Blazer',
     price: 13900,
@@ -55,6 +58,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-weiter-rock-mit-taschen',
+    category: 'Röcke',
     article: 'den',
     title: 'EMO weiter Rock mit Taschen',
     price: 6900,
@@ -81,6 +85,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-bluse',
+    category: 'Blusen & Tops',
     article: 'die',
     title: 'EMO Bluse',
     price: 6500,
@@ -114,6 +119,7 @@ window.FREDA_PRODUCTS = [
 
   {
     handle: 'emo-jeansjacke-oversize',
+    category: 'Jacken',
     article: 'die',
     title: 'EMO Jeansjacke Oversize',
     price: 10900,
@@ -151,6 +157,10 @@ window.FREDA_LOOKBOOK = [
   { src: 'assets/img/products/jeansjacke-02.jpg',      alt: 'Oversize-Jeansjacke im Look',  size: 'small' },
   { src: 'assets/img/products/jeansjacke-03.jpg',      alt: 'Oversize-Jeansjacke, Detail',  size: 'small' }
 ];
+
+/* Reihenfolge der Kategorien in der Filterleiste. Kategorien, die hier
+   nicht stehen, haengt das Skript hinten an. */
+window.FREDA_CATEGORIES = ['Blazer', 'Jacken', 'Blusen & Tops', 'Röcke'];
 
 /* Markenbereich: eigene Auswahl, damit nicht dasselbe Motiv wie im
    Hero und im Lookbook ein drittes Mal auf der Startseite steht. */

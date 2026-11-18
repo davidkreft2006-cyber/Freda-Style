@@ -217,6 +217,24 @@ SVG-Dateien bleiben als eigenständige Markendateien erhalten.
 
 ---
 
+## Filter und Kategorien
+
+Links neben den Produkten steht eine Filterleiste mit drei aufklappbaren
+Gruppen: **Kategorie**, **Größe** und **Farbe**. Auf dem Handy fährt sie als
+Schublade herein.
+
+Die Auswahlmöglichkeiten werden **aus den Produktdaten erzeugt** – ein neues
+Produkt erweitert die Leiste von selbst. Gesteuert wird das über zwei Felder
+in `assets/js/products.js`:
+
+* `category` pro Produkt – entspricht später dem Shopify-Feld *Produkttyp*
+* `FREDA_CATEGORIES` – die Reihenfolge der Kategorien in der Leiste
+
+Hinter jedem Eintrag steht, wie viele Artikel übrig blieben. Kombinationen
+ohne Treffer werden ausgegraut und sind nicht anklickbar. Innerhalb einer
+Gruppe gilt „oder", zwischen den Gruppen „und" – so machen es gängige
+Modeshops auch.
+
 ## Bewegung und Feinschliff
 
 | Wo | Was passiert |
