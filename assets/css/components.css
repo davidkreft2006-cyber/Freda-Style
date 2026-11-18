@@ -213,11 +213,14 @@
 .media.is-missing img { opacity: 0; }
 .media.is-missing .media__fallback { display: flex; }
 
-/* --- Produktkarte -------------------------------------------- */
+/* --- Produktkarte ---------------------------------------------
+   Knapper Katalog-Stil: Bild im Verhaeltnis 3:4, darunter eine
+   kleine Zeile in Versalien und der Preis. Kein Rahmen, keine
+   Rundungen - die Ruhe kommt aus dem Weissraum. */
 .card { position: relative; display: flex; flex-direction: column; }
 
 .card__media { position: relative; }
-.card__media .media { --media-ratio: 2 / 3; }
+.card__media .media { --media-ratio: 3 / 4; background: var(--c-cream-deep); }
 
 .card__img--alt {
   position: absolute;
@@ -225,58 +228,67 @@
   opacity: 0;
 }
 @media (hover: hover) {
-  .card:hover .card__img--main { transform: scale(1.04); }
-  .card:hover .card__img--alt  { opacity: 1; transform: scale(1.04); }
+  .card:hover .card__img--alt { opacity: 1; }
 }
 
+/* Merken-Knopf oben rechts, wie im Katalog ueblich. */
 .card__quick {
   position: absolute;
   left: var(--s-3);
   right: var(--s-3);
   bottom: var(--s-3);
-  background: rgba(255, 253, 249, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--c-ink);
-  min-height: 44px;
-  font-size: var(--fs-xs);
+  min-height: 40px;
+  font-size: 0.65rem;
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
-  border: 1px solid transparent;
-  border-radius: var(--radius);
+  font-weight: 500;
+  border: 0;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease),
-              background var(--dur) var(--ease);
+              background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-/* Ohne Hover (Touch) bleibt Quick View sichtbar, aber zurueckhaltend. */
 @media (hover: none) {
-  .card__quick { min-height: 38px; font-size: 0.66rem; letter-spacing: 0.12em; }
+  .card__quick { min-height: 36px; font-size: 0.6rem; }
 }
 @media (hover: hover) {
-  .card__quick { opacity: 0; transform: translateY(8px); }
+  .card__quick { opacity: 0; transform: translateY(6px); }
   .card:hover .card__quick,
   .card__quick:focus-visible { opacity: 1; transform: none; }
 }
-.card__quick:hover { background: var(--c-ink); color: var(--c-cream); }
+.card__quick:hover { background: var(--c-ink); color: #fff; }
 
 .card__body {
   display: flex;
   flex-direction: column;
-  gap: var(--s-1);
-  padding-top: var(--s-4);
+  gap: 2px;
+  padding-top: var(--s-3);
 }
 .card__title {
-  font-family: var(--f-display);
-  font-size: var(--fs-md);
-  letter-spacing: 0.01em;
+  font-family: var(--f-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.35;
 }
 .card__title a::after { content: ''; position: absolute; inset: 0; }
-.card__price { font-size: var(--fs-sm); letter-spacing: 0.04em; }
-.card__meta {
+.card__price {
   font-size: var(--fs-xs);
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.card__meta {
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--c-muted);
+  margin-top: 2px;
 }
 
 /* --- Dialoge (Produktansicht, Warenkorb) --------------------- */
@@ -403,9 +415,42 @@
 .pd__info { padding: var(--s-6) var(--s-5) var(--s-7); display: flex; flex-direction: column; gap: var(--s-4); }
 @media (min-width: 900px) { .pd__info { padding: var(--s-7) var(--s-7) var(--s-8); } }
 
-.pd__title { font-size: var(--fs-xl); }
-.pd__price { font-size: var(--fs-md); letter-spacing: 0.04em; }
-.pd__desc  { color: var(--c-ink-soft); }
+/* Kopfzeile des Produkts: Name gross in der Serifenschrift, der
+   Preis rechts daneben - wie auf den Vorlagen. */
+.pd__title {
+  font-size: clamp(1.4rem, 1.1rem + 1.5vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+.pd__price {
+  font-family: var(--f-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.pd__topline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+.pd__desc { color: var(--c-ink-soft); font-size: var(--fs-sm); line-height: 1.7; }
+
+/* Zaehler ueber der Galerie, z. B. 01 / 04 */
+.pd__counter {
+  position: absolute;
+  left: var(--s-4);
+  bottom: var(--s-4);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(6px);
+  padding: 4px 9px;
+  font-size: 0.63rem;
+  letter-spacing: 0.18em;
+  font-variant-numeric: tabular-nums;
+}
 
 .pd__facts { display: grid; gap: var(--s-2); border-top: 1px solid var(--c-line); padding-top: var(--s-4); }
 .pd__fact { display: flex; gap: var(--s-4); font-size: var(--fs-sm); }
@@ -431,21 +476,31 @@
 /* --- Varianten-Auswahl --------------------------------------- */
 .opt { display: flex; flex-direction: column; gap: var(--s-3); }
 .opt__label {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--c-muted);
+  color: var(--c-ink);
 }
-.opt__list { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.opt__label em { font-style: normal; color: var(--c-muted); font-weight: 400; }
+.opt__list { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Groessen stehen im gleichmaessigen Raster, Farben bleiben fliessend. */
+.opt--size .opt__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(58px, 1fr));
+  max-width: 420px;
+}
 .opt__btn {
-  min-height: 44px;
-  min-width: 56px;
+  min-height: 46px;
+  min-width: 58px;
   padding: 0 var(--s-4);
   border: 1px solid var(--c-line);
-  border-radius: var(--radius);
+  border-radius: 0;
   background: transparent;
   font-size: var(--fs-sm);
+  font-weight: 500;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: border-color var(--dur-fast) var(--ease),
               background var(--dur-fast) var(--ease),
               color var(--dur-fast) var(--ease);
@@ -454,7 +509,7 @@
 .opt__btn[aria-pressed='true'] { background: var(--c-ink); color: var(--c-cream); border-color: var(--c-ink); }
 .opt__btn[disabled] { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
 
-.opt__hint { font-size: var(--fs-xs); color: var(--c-gold); letter-spacing: 0.06em; }
+.opt__hint { font-size: var(--fs-xs); color: var(--c-ink-soft); letter-spacing: 0.06em; }
 
 /* Ehrlicher Hinweis, wenn fuer eine Variante noch kein eigenes Foto vorliegt. */
 .opt__note {
@@ -470,7 +525,7 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--c-line);
-  border-radius: var(--radius);
+  border-radius: 0;
 }
 .qty button {
   width: 44px; height: 44px;
@@ -486,6 +541,23 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Kaufbereich: auf dem Handy klebt er unten am Rand, wie in der App.
+   Ab Tablet steht er normal im Textfluss. */
+.pd__buy { display: flex; flex-direction: column; gap: var(--s-2); }
+@media (max-width: 899px) {
+  .pd__buy {
+    position: sticky;
+    bottom: 0;
+    margin: var(--s-4) calc(-1 * var(--s-5)) calc(-1 * var(--s-7));
+    padding: var(--s-3) var(--s-5) calc(var(--s-3) + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--c-line);
+  }
+}
+.btn__price { font-variant-numeric: tabular-nums; }
+.btn__sep { opacity: 0.55; }
+
 /* --- Warenkorb ------------------------------------------------ */
 .cart__list { display: flex; flex-direction: column; }
 .cart__item {
@@ -497,9 +569,21 @@
 }
 .cart__item .media { --media-ratio: 2 / 3; }
 .cart__row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-3); }
-.cart__name { font-family: var(--f-display); font-size: var(--fs-md); line-height: 1.2; }
+.cart__name {
+  font-family: var(--f-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+}
 .cart__variant { font-size: var(--fs-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-muted); }
-.cart__price { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cart__price {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 .cart__remove {
   font-size: var(--fs-xs);
   letter-spacing: 0.08em;
@@ -511,8 +595,25 @@
 }
 .cart__remove:hover { color: var(--c-ink); }
 .cart__empty { padding: var(--s-8) var(--s-5); text-align: center; color: var(--c-muted); display: grid; gap: var(--s-4); justify-items: center; }
-.cart__sum { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--fs-md); }
-.cart__sum span:last-child { font-variant-numeric: tabular-nums; }
+/* Bestelluebersicht als eigener Block, wie auf den Vorlagen. */
+.cart__sum {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--s-3) var(--s-4);
+  background: var(--c-paper);
+  border: 1px solid var(--c-line);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cart__sum span:last-child {
+  font-family: var(--f-display);
+  font-size: var(--fs-md);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
 .cart__note { font-size: var(--fs-xs); color: var(--c-muted); line-height: 1.5; }
 
 .count {

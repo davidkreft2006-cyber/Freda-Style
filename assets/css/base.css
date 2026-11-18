@@ -3,34 +3,39 @@
    ============================================================= */
 
 :root {
-  /* --- Farben ---------------------------------------------- */
-  --c-ink:          #111111;   /* tiefes Schwarz, Typografie   */
-  --c-ink-soft:     #3a3733;
-  --c-muted:        #77706a;
-  --c-line:         #e2dbd0;
-  --c-cream:        #f7f3ec;   /* warmes Off-White, Hintergrund*/
-  --c-cream-deep:   #efe8dd;
-  --c-paper:        #fffdf9;
-  --c-gold:         #b08d4f;   /* sehr dezenter Goldakzent     */
-  --c-gold-soft:    #d8c7a4;
-  --c-ok:           #3f6b4c;
+  /* --- Farben -----------------------------------------------
+     Schwarz-Weiss-Minimalismus statt Creme und Gold. Die Flaechen
+     sind fast weiss, Kontrast kommt ueber Typografie und Bild. */
+  --c-ink:          #111111;   /* Schrift und Flaechen           */
+  --c-ink-soft:     #525252;
+  --c-muted:        #8a8a8a;
+  --c-line:         #e6e6e6;   /* Haarlinien                      */
+  --c-line-soft:    #f0f0f0;
+  --c-cream:        #ffffff;   /* Grundflaeche                    */
+  --c-cream-deep:   #f2f2f2;   /* Bildflaechen vor dem Laden      */
+  --c-paper:        #f9f9f9;   /* abgesetzte Abschnitte           */
+  --c-accent:       #111111;   /* Akzent ist Schwarz, kein Gold   */
+  --c-gold:         #111111;   /* Altnamen zeigen auf Schwarz,    */
+  --c-gold-soft:    #d4d4d4;   /* damit nichts unversehens bunt   */
+  --c-ok:           #2f6b3f;
 
-  /* --- Typografie ------------------------------------------ */
-  --f-display: 'Cormorant Garamond', 'Cormorant', Didot, 'Bodoni MT',
+  /* --- Typografie --------------------------------------------
+     Playfair Display fuer Schlagzeilen, Inter fuer alles andere. */
+  --f-display: 'Playfair Display', 'Cormorant Garamond', Didot,
                'Times New Roman', serif;
-  --f-body:    'Jost', 'Inter', -apple-system, BlinkMacSystemFont,
+  --f-body:    'Inter', -apple-system, BlinkMacSystemFont,
                'Helvetica Neue', Arial, sans-serif;
 
-  --fs-xs:   0.72rem;
-  --fs-sm:   0.82rem;
-  --fs-base: 0.95rem;
-  --fs-md:   1.05rem;
-  --fs-lg:   clamp(1.35rem, 1.1rem + 1.1vw, 1.9rem);
-  --fs-xl:   clamp(1.9rem,  1.4rem + 2.4vw, 3.1rem);
-  --fs-2xl:  clamp(2.4rem,  1.5rem + 4.4vw, 4.6rem);
+  --fs-xs:   0.69rem;
+  --fs-sm:   0.78rem;
+  --fs-base: 0.875rem;
+  --fs-md:   1rem;
+  --fs-lg:   clamp(1.2rem, 1rem + 1vw, 1.6rem);
+  --fs-xl:   clamp(1.5rem, 1.1rem + 1.9vw, 2.3rem);
+  --fs-2xl:  clamp(2rem,  1.3rem + 3.4vw, 3.4rem);
 
-  --ls-wide:  0.18em;
-  --ls-wider: 0.3em;
+  --ls-wide:  0.2em;
+  --ls-wider: 0.32em;
 
   /* --- Abstaende ------------------------------------------- */
   --s-1: 0.25rem;
@@ -47,8 +52,8 @@
   --maxw:   1280px;
 
   /* --- Form / Bewegung ------------------------------------- */
-  --radius:      2px;
-  --radius-lg:   4px;
+  --radius:      0px;   /* kantig, wie im Katalog-Stil */
+  --radius-lg:   0px;
   --shadow-soft: 0 18px 40px -28px rgba(17, 17, 17, 0.45);
 
   --dur-fast: 180ms;
@@ -59,7 +64,7 @@
   --header-h: 68px;
 
   /* Haekchen fuer die Filter-Kaestchen. */
-  --check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f7f3ec' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  --check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
 }
 
 @media (min-width: 768px) {
@@ -103,8 +108,8 @@ body {
   color: var(--c-ink);
   font-family: var(--f-body);
   font-size: var(--fs-base);
-  line-height: 1.65;
-  font-weight: 350;
+  line-height: 1.6;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -117,8 +122,8 @@ img { height: auto; }
 h1, h2, h3, h4 {
   font-family: var(--f-display);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.005em;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
   margin: 0;
 }
 
@@ -149,17 +154,17 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 
 .u-eyebrow {
-  font-size: var(--fs-xs);
+  font-size: 0.63rem;
   letter-spacing: var(--ls-wider);
   text-transform: uppercase;
   color: var(--c-muted);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .u-rule {
-  width: 42px;
+  width: 32px;
   height: 1px;
-  background: var(--c-gold);
+  background: var(--c-ink);
   border: 0;
   margin: var(--s-4) 0 0;
 }

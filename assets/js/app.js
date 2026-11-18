@@ -732,6 +732,11 @@
         '<div class="pd__gallery">' +
           '<div class="pd__stage">' +
             mediaMarkup(current, p.title, { eager: true, sizes: '(min-width: 900px) 50vw, 100vw' }) +
+            (images.length > 1
+              ? '<span class="pd__counter">' +
+                String(state.image + 1).padStart(2, '0') + ' / ' +
+                String(images.length).padStart(2, '0') + '</span>'
+              : '') +
           '</div>' +
           (images.length > 1
             ? '<div class="pd__thumbs" role="tablist" aria-label="Weitere Produktbilder">' +
@@ -762,9 +767,11 @@
       }
       return p.options.map(function (name, i) {
         var values = optionValues(p, i);
-        return '<div class="opt">' +
+        var istGroesse = name === SIZE_LABEL;
+        return '<div class="opt' + (istGroesse ? ' opt--size' : '') + '">' +
           '<span class="opt__label">' + escapeHtml(name) +
-            (state.selection[i] ? ': ' + escapeHtml(state.selection[i]) : '') + '</span>' +
+            (state.selection[i] ? ' <em>' + escapeHtml(state.selection[i]) + '</em>' : '') +
+          '</span>' +
           '<div class="opt__list">' +
             values.map(function (value) {
               var enabled = valueAvailable(i, value);
@@ -787,9 +794,11 @@
         '<div class="pd">' +
           galleryMarkup() +
           '<div class="pd__info">' +
-            '<p class="u-eyebrow">Freda Style</p>' +
+            '<div class="pd__topline">' +
+              '<p class="u-eyebrow">' + escapeHtml(p.category || 'Freda Style') + '</p>' +
+              '<p class="pd__price">' + formatPrice(p.price) + '</p>' +
+            '</div>' +
             '<h2 class="pd__title" id="pd-title">' + escapeHtml(p.title) + '</h2>' +
-            '<p class="pd__price">' + formatPrice(p.price) + '</p>' +
             '<p class="status' + (available ? '' : ' status--out') + '">' +
               (available ? 'Verfügbar' : 'Derzeit nicht verfügbar') + '</p>' +
             '<p class="pd__desc">' + escapeHtml(p.description) + '</p>' +
@@ -815,8 +824,12 @@
                 '<button type="button" data-qty="1" aria-label="Menge erhöhen">+</button>' +
               '</div>' +
             '</div>' +
+            '<div class="pd__buy">' +
             '<button class="btn btn--block" type="button" data-add' +
-              (needsChoice || !available ? ' disabled' : '') + '>In den Warenkorb</button>' +
+              (needsChoice || !available ? ' disabled' : '') + '>' +
+              'In den Warenkorb<span class="btn__sep"> · </span>' +
+              '<span class="btn__price">' + formatPrice(p.price * state.qty) + '</span>' +
+            '</button>' +
             (function () {
               var url = waUrl(productMessage(p, state.variant));
               return url
@@ -826,6 +839,7 @@
                 : '<button class="btn btn--wa btn--block" type="button" data-wa-product>' +
                   'Über WhatsApp anfragen</button>';
             })() +
+            '</div>' +
           '</div>' +
         '</div>';
     }
