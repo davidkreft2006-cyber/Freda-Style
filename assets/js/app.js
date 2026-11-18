@@ -602,6 +602,20 @@
     }
 
     return {
+      /* Vom Menue aus: genau eine Kategorie setzen, alles andere loeschen. */
+      setCategory: function (name) {
+        Object.keys(aktiv).forEach(function (k) { aktiv[k] = []; });
+        if (name) aktiv.category = [name];
+        anwenden();
+      },
+      /* Wie viele Artikel stecken in einer Kategorie? */
+      countFor: function (name) {
+        return PRODUCTS.filter(function (p) {
+          return !name || p.category === name;
+        }).length;
+      },
+      categories: function () { return kategorien(); },
+
       init: function () {
         if (!$('[data-filter-groups]')) { renderGrid(); return; }
 
@@ -1026,6 +1040,40 @@
   /* Filter-Schublade auf schmalen Displays.
      Ab Tablet steht die Leiste fest in der Spalte, dann macht der
      Knopf nichts - er ist dort ausgeblendet. */
+  /* Kategorien in das aufklappbare Menue schreiben.
+     Ein Klick setzt den Filter und springt zum Katalog - so wie man es
+     von groesseren Modeshops kennt. */
+  function renderMenu() {
+    var liste = $('[data-menu-list]');
+    if (!liste || !Filter.categories) return;
+
+    var kategorien = Filter.categories();
+    if (!kategorien.length) return;
+
+    var oben =
+      '<li><button type="button" class="mobilenav__cat" data-menu-category="">' +
+        'Alle Artikel<span>' + Filter.countFor('') + '</span>' +
+      '</button></li>' +
+      kategorien.map(function (name) {
+        return '<li><button type="button" class="mobilenav__cat" ' +
+          'data-menu-category="' + escapeHtml(name) + '">' +
+          escapeHtml(name) + '<span>' + Filter.countFor(name) + '</span>' +
+        '</button></li>';
+      }).join('') +
+      '<li class="mobilenav__label">Seite</li>';
+
+    liste.insertAdjacentHTML('afterbegin', oben);
+
+    document.addEventListener('click', function (event) {
+      var knopf = event.target.closest('[data-menu-category]');
+      if (!knopf) return;
+      Filter.setCategory(knopf.dataset.menuCategory);
+      Panels.close();
+      var shop = document.getElementById('shop');
+      if (shop) shop.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   function initFilterDrawer() {
     var shop = $('.shop');
     if (!shop) return;
@@ -1187,6 +1235,7 @@
     animateHeadline();
     renderHero();
     Filter.init();
+    renderMenu();
     renderStoryMedia();
     renderLookbook();
     renderInstagram();

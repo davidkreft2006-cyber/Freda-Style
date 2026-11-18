@@ -91,24 +91,64 @@
   .header__actions > a.icon-btn { display: none; }
 }
 .header__cart { position: relative; }
+/* Der Menue-Knopf bleibt auf allen Breiten sichtbar - er oeffnet die
+   Kategorien, nicht nur die Seitenlinks. */
 .header__burger { display: inline-flex; }
-@media (min-width: 900px) { .header__burger { display: none; } }
 
 /* Mobiles Menue */
+/* Das Menue faehrt von links herein - dort sitzt auch der Knopf. */
 .mobilenav {
-  top: 0; right: 0; bottom: 0;
-  width: min(360px, 100%);
-  transform: translateX(100%);
-  background: var(--c-paper);
+  top: 0; left: 0; bottom: 0;
+  width: min(400px, 92vw);
+  transform: translateX(-100%);
+  background: #fff;
   box-shadow: var(--shadow-soft);
 }
 .mobilenav.is-open { transform: none; }
-.mobilenav__list { padding: var(--s-5); display: flex; flex-direction: column; }
-.mobilenav__list a {
-  font-family: var(--f-display);
-  font-size: var(--fs-lg);
+.mobilenav__list { padding: var(--s-4) var(--s-5) var(--s-5); display: flex; flex-direction: column; }
+
+/* Zwischenueberschrift im Menue */
+.mobilenav__label {
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--c-muted);
+  padding: var(--s-5) 0 var(--s-2);
+}
+.mobilenav__list > .mobilenav__label:first-child { padding-top: 0; }
+
+/* Eine Kategorie: Name links, Anzahl rechts */
+.mobilenav__cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  width: 100%;
   padding: var(--s-3) 0;
-  border-bottom: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line-soft);
+  font-family: var(--f-display);
+  font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem);
+  text-align: left;
+  transition: padding-left var(--dur) var(--ease);
+}
+.mobilenav__cat span {
+  font-family: var(--f-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--c-muted);
+  font-variant-numeric: tabular-nums;
+}
+.mobilenav__cat:hover { padding-left: 6px; }
+
+.mobilenav__list a {
+  font-family: var(--f-body);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--c-line-soft);
 }
 .mobilenav__foot {
   padding: var(--s-5);

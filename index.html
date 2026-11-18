@@ -443,16 +443,17 @@
 <!-- Mobiles Menue -->
 <aside class="panel mobilenav" data-mobilenav aria-hidden="true" aria-label="Menü">
   <div class="panel__head">
-    <span class="panel__title">Menü</span>
+    <span class="panel__title">Kategorien</span>
     <button class="icon-btn" type="button" data-close-panel aria-label="Menü schließen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <path d="M6 6l12 12M18 6L6 18"></path>
       </svg>
     </button>
   </div>
-  <nav class="panel__body">
-    <ul class="mobilenav__list">
-      <li><a href="#neuheiten">Neuheiten</a></li>
+  <nav class="panel__body" data-menu>
+    <!-- Die Kategorien traegt das Skript ein, damit sie immer zu den
+         Produktdaten passen. Ohne JavaScript bleiben die Seitenlinks. -->
+    <ul class="mobilenav__list" data-menu-list>
       <li><a href="#shop">Shop</a></li>
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
