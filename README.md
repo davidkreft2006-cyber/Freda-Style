@@ -217,36 +217,6 @@ SVG-Dateien bleiben als eigenständige Markendateien erhalten.
 
 ---
 
-## Lieferhinweis in der Produktansicht
-
-Unter dem Kaufbereich steht ein Ablauf-Hinweis in drei Schritten. Er hat
-**zwei Zustände**, gesteuert über `delivery` in `assets/js/config.js`:
-
-**Voreinstellung (`enabled: false`)** – zeigt nur den Ablauf:
-*Anfrage über WhatsApp · Beratung persönlich · Versand oder Abholung*.
-Keine Termine, kein Countdown.
-
-**Mit hinterlegten Zeiten (`enabled: true`)** – zeigt zusätzlich die
-gerechneten Termine und die Restzeit bis zum Bestellschluss:
-
-```js
-delivery: {
-  enabled: true,
-  cutoffHour: 16,       // Bestellschluss, volle Stunde
-  handlingDays: 1,      // Werktage bis Versand
-  shippingDaysMin: 1,   // schnellste Zustellung
-  shippingDaysMax: 3    // langsamste Zustellung
-}
-```
-
-Die Berechnung überspringt Wochenenden. Ist der Bestellschluss für heute
-vorbei, rückt alles auf den nächsten Werktag.
-
-> **Wichtig:** `enabled` bleibt auf `false`, solange die Betreiberin keine
-> verbindlichen Zeiten nennt. Lieferzeiten, die nicht zugesagt werden können,
-> dürfen nicht behauptet werden – das ist bei einem echten Shop auch
-> rechtlich relevant.
-
 ## Filter und Kategorien
 
 Links neben den Produkten steht eine Filterleiste mit drei aufklappbaren

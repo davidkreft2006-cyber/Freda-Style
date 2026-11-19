@@ -35,32 +35,6 @@ window.FREDA_CONFIG = {
   locale: 'de-DE',
   currency: 'EUR',
 
-  /* --- Lieferung -------------------------------------------
-     Steuert den Ablauf-Hinweis in der Produktansicht.
-
-     Solange "enabled" auf false steht, zeigt die Seite nur den
-     Ablauf (Anfrage, Beratung, Versand) OHNE Datumsangaben.
-     Das ist Absicht: Lieferzeiten, die nicht zugesagt werden
-     koennen, duerfen nicht behauptet werden.
-
-     Sobald die Betreiberin verbindliche Zeiten nennt:
-       enabled          auf true setzen
-       cutoffHour       Stunde des Bestellschlusses, z. B. 16
-       handlingDays     Werktage von Bestellung bis Versand
-       shippingDaysMin  schnellste Zustellung in Werktagen
-       shippingDaysMax  langsamste Zustellung in Werktagen
-     Erst dann erscheinen Termine und der Countdown.
-     ------------------------------------------------------------- */
-  delivery: {
-    enabled: false,
-    cutoffHour: null,
-    handlingDays: null,
-    shippingDaysMin: null,
-    shippingDaysMax: null,
-    /* Wird im Ablauf genannt, wenn keine Termine hinterlegt sind. */
-    hint: 'Versand und Abholung stimmt Freda Style persönlich mit dir ab.'
-  },
-
   /* --- Rechtliche Platzhalter ------------------------------ */
   /* TODO: Rechtstexte ergaenzen. Bis dahin bleiben die Links
      bewusst als Platzhalter gekennzeichnet – es werden keine

@@ -321,11 +321,7 @@
       }
     }
 
-    function close() {
-      /* Der Countdown soll nicht im Hintergrund weiterlaufen. */
-      if (typeof Delivery !== 'undefined' && Delivery.stop) Delivery.stop();
-      hide(false);
-    }
+    function close() { hide(false); }
 
     return {
       init: function (overlayEl) {
@@ -692,154 +688,6 @@
   }
 
   /* ==========================================================
-     Lieferhinweis in der Produktansicht
-
-     Zwei Zustaende, je nach dem, was in config.js steht:
-
-     a) Keine Zeiten hinterlegt -> nur der Ablauf in drei
-        Schritten, ohne Termine und ohne Countdown.
-     b) Zeiten hinterlegt -> zusaetzlich die gerechneten
-        Termine und die Restzeit bis zum Bestellschluss.
-
-     Ohne echte Zusagen werden hier bewusst keine Termine
-     behauptet.
-     ========================================================== */
-  var Delivery = (function () {
-    var takt = null;
-
-    var TAGE = ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'];
-
-    function istWerktag(d) {
-      var w = d.getDay();
-      return w !== 0 && w !== 6;
-    }
-
-    /* Zaehlt n Werktage weiter, Wochenenden werden uebersprungen. */
-    function plusWerktage(start, n) {
-      var d = new Date(start.getTime());
-      var rest = n;
-      while (rest > 0) {
-        d.setDate(d.getDate() + 1);
-        if (istWerktag(d)) rest--;
-      }
-      return d;
-    }
-
-    function kurz(d) {
-      return TAGE[d.getDay()] + ', ' +
-             d.getDate() + '.' + (d.getMonth() + 1) + '.';
-    }
-
-    function tagMonat(d) {
-      return d.getDate() + '.' + (d.getMonth() + 1) + '.';
-    }
-
-    /* Wann ist der naechste Bestellschluss? */
-    function naechsterSchluss(jetzt, stunde) {
-      var ziel = new Date(jetzt.getTime());
-      ziel.setHours(stunde, 0, 0, 0);
-      if (ziel <= jetzt) ziel.setDate(ziel.getDate() + 1);
-      while (!istWerktag(ziel)) ziel.setDate(ziel.getDate() + 1);
-      return ziel;
-    }
-
-    function konfiguriert() {
-      var d = CFG.delivery;
-      return !!(d && d.enabled &&
-                typeof d.cutoffHour === 'number' &&
-                typeof d.handlingDays === 'number' &&
-                typeof d.shippingDaysMin === 'number' &&
-                typeof d.shippingDaysMax === 'number');
-    }
-
-    function schritt(titel, zeile, pfad) {
-      return '<li class="ship__step">' +
-        '<span class="ship__icon" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-            'stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' +
-            pfad +
-          '</svg>' +
-        '</span>' +
-        '<strong>' + escapeHtml(titel) + '</strong>' +
-        (zeile ? '<span>' + escapeHtml(zeile) + '</span>' : '') +
-      '</li>';
-    }
-
-    var ICON_ANFRAGE = '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 21l2-4.9A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>';
-    var ICON_VERSAND = '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>';
-    var ICON_HAUS    = '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>';
-
-    function markup() {
-      var d = CFG.delivery || {};
-
-      /* ---- Ohne hinterlegte Zeiten: nur der Ablauf ---- */
-      if (!konfiguriert()) {
-        return '<section class="ship" aria-label="Ablauf deiner Bestellung">' +
-          '<p class="ship__kicker">So läuft deine Bestellung</p>' +
-          '<ol class="ship__steps">' +
-            schritt('Anfrage', 'über WhatsApp', ICON_ANFRAGE) +
-            schritt('Beratung', 'persönlich', ICON_VERSAND) +
-            schritt('Versand', 'oder Abholung', ICON_HAUS) +
-          '</ol>' +
-          (d.hint ? '<p class="ship__note">' + escapeHtml(d.hint) + '</p>' : '') +
-        '</section>';
-      }
-
-      /* ---- Mit hinterlegten Zeiten: Termine und Countdown ---- */
-      var jetzt = new Date();
-      var schluss = naechsterSchluss(jetzt, d.cutoffHour);
-      var bestellung = new Date(schluss.getTime());
-      var versand = plusWerktage(bestellung, d.handlingDays);
-      var frueh = plusWerktage(versand, d.shippingDaysMin);
-      var spaet = plusWerktage(versand, d.shippingDaysMax);
-
-      var spanne = frueh.getMonth() === spaet.getMonth()
-        ? frueh.getDate() + '.–' + spaet.getDate() + '. ' +
-          frueh.toLocaleDateString(CFG.locale, { month: 'long' })
-        : tagMonat(frueh) + ' – ' + tagMonat(spaet);
-
-      return '<section class="ship ship--dates" aria-label="Voraussichtliche Lieferung">' +
-        '<p class="ship__kicker">Voraussichtlich bei dir</p>' +
-        '<p class="ship__range">' + escapeHtml(spanne) + '</p>' +
-        '<ol class="ship__steps">' +
-          schritt('Bestellung', kurz(bestellung), ICON_ANFRAGE) +
-          schritt('Versand', kurz(versand), ICON_VERSAND) +
-          schritt('Lieferung', tagMonat(frueh) + '–' + tagMonat(spaet), ICON_HAUS) +
-        '</ol>' +
-        '<p class="ship__cutoff">Bestellschluss in ' +
-          '<span data-countdown="' + schluss.getTime() + '">--:--:--</span>' +
-        '</p>' +
-      '</section>';
-    }
-
-    /* Der Countdown laeuft nur, solange die Produktansicht offen ist. */
-    function start(wurzel) {
-      stop();
-      var feld = $('[data-countdown]', wurzel);
-      if (!feld) return;
-      var ziel = Number(feld.dataset.countdown);
-
-      var tick = function () {
-        var rest = ziel - Date.now();
-        if (rest <= 0) { feld.textContent = '00:00:00'; stop(); return; }
-        var sek = Math.floor(rest / 1000);
-        var teile = [Math.floor(sek / 3600), Math.floor(sek / 60) % 60, sek % 60];
-        feld.textContent = teile.map(function (n) {
-          return String(n).padStart(2, '0');
-        }).join(' : ');
-      };
-      tick();
-      takt = window.setInterval(tick, 1000);
-    }
-
-    function stop() {
-      if (takt) { window.clearInterval(takt); takt = null; }
-    }
-
-    return { markup: markup, start: start, stop: stop };
-  })();
-
-  /* ==========================================================
      Produktansicht
      ========================================================== */
   var Detail = (function () {
@@ -952,7 +800,6 @@
     }
 
     function render() {
-      Delivery.stop();
       var p = state.product;
       var needsChoice = p.variants.length > 1 && !state.variant;
       var available = p.available && (!state.variant || state.variant.available !== false);
@@ -1007,11 +854,8 @@
                   'Über WhatsApp anfragen</button>';
             })() +
             '</div>' +
-            Delivery.markup() +
           '</div>' +
         '</div>';
-
-      Delivery.start(body);
     }
 
     function onClick(event) {
